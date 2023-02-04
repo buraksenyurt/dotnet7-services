@@ -2,13 +2,14 @@
 
 namespace RockShop.Shared;
 
-public partial class ChinookContext : DbContext
+public partial class ChinookDbContext : DbContext
 {
-    public ChinookContext()
+    private static readonly DataRefreshedInterceptor dataRefreshedInterceptor = new();
+    public ChinookDbContext()
     {
     }
 
-    public ChinookContext(DbContextOptions<ChinookContext> options)
+    public ChinookDbContext(DbContextOptions<ChinookDbContext> options)
         : base(options)
     {
     }
@@ -34,7 +35,14 @@ public partial class ChinookContext : DbContext
     public virtual DbSet<Track> Tracks { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseNpgsql("Host=localhost;Database=postgres;Username=scoth;Password=tiger");
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            optionsBuilder.UseNpgsql("Host=localhost;Database=postgres;Username=scoth;Password=tiger");
+        }
+        optionsBuilder.AddInterceptors(dataRefreshedInterceptor);
+    }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
