@@ -5,7 +5,7 @@ namespace RockShop.Shared
 {
     public static class ChinookDbContextExtensions
     {
-        public static IServiceCollection AddChinookContext(
+        public static IServiceCollection AddChinookDbContext(
             this IServiceCollection services
             , string connStr = "Host=localhost;Database=postgres;Username=scoth;Password=tiger")
         {

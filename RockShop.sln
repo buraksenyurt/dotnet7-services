@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RockShop.Common.DataContext
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RockShop.Common.Models.Tests", "RockShop.Common.Models.Tests\RockShop.Common.Models.Tests.csproj", "{35AC87DE-D9E8-43AC-AA80-6E98A35486A3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RockShop.WebApi.Service", "RockShop.WebApi.Service\RockShop.WebApi.Service.csproj", "{5E945D4B-259D-4842-BEA7-9FB3502946F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{35AC87DE-D9E8-43AC-AA80-6E98A35486A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35AC87DE-D9E8-43AC-AA80-6E98A35486A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35AC87DE-D9E8-43AC-AA80-6E98A35486A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E945D4B-259D-4842-BEA7-9FB3502946F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E945D4B-259D-4842-BEA7-9FB3502946F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E945D4B-259D-4842-BEA7-9FB3502946F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E945D4B-259D-4842-BEA7-9FB3502946F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
