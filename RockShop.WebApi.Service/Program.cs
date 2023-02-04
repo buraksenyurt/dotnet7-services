@@ -19,6 +19,17 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/Ping",()=>"Pong");
+app.MapGet("/Ping", () => "Pong");
+
+int pageSize = 5;
+app.MapGet("api/albums", (
+    [FromServices] ChinookDbContext db,
+    [FromQuery] int? page) => db.Albums.Skip(((page ?? 1) - 1) * pageSize).Take(pageSize)).WithName("GetAlbums")
+    .WithOpenApi(operation =>
+    {
+        operation.Description = "Get albums with paging";
+        return operation;
+    })
+    .Produces<Album[]>(StatusCodes.Status200OK);
 
 app.Run();

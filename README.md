@@ -37,4 +37,9 @@ docker-compose up
 ```text
 HTTP Get
 http://localhost:5221/ping
+
+# Get Albums with paging
+HTTP Get
+http://localhost:5221/api/albums
+http://localhost:5221/api/albums?page=3
 ```
