@@ -8,7 +8,7 @@ Solution uses a simple and popular database, chinook. Database provider is Postg
 
 ```shell
 # to use Postgresql
-docker run --name postgresql -e POSTGRES_USER=scoth -e POSTGRES_PASSWORD=tiger -p 5432:5432 -v /data:/var/lib/postgresql/data -d postgres
+docker run --name postgresql -e POSTGRES_DB=chinook POSTGRES_USER=scoth -e POSTGRES_PASSWORD=tiger -p 5432:5432 -v /data:/var/lib/postgresql/data -d postgres
 
 # to use ef tool
 dotnet tool install -g dotnet-ef
@@ -29,17 +29,22 @@ docker stop postgresql
 docker rm [container_id]
 
 # if you want you can use docker-compose file
-docker-compose up
+docker-compose up -d
 ```
 
-### Sample Request
+### Sample Requests
 
-```text
-HTTP Get
-http://localhost:5221/ping
+```bash
+# Ping - Pong
+curl -X 'GET' 'http://localhost:5221/Ping' -H 'accept: text/plain'
 
-# Get Albums with paging
-HTTP Get
-http://localhost:5221/api/albums
-http://localhost:5221/api/albums?page=3
+
+# Get albums with paging
+curl -X 'GET' 'http://localhost:5221/api/albums?page=5' -H 'accept: application/json'
+
+# Get album by id
+curl -X 'GET' 'http://localhost:5221/api/albums/45' -H 'accept: application/json'
+
+# Get customers which living in Portugal
+curl -X 'GET' 'http://localhost:5221/api/customers/Portugal' -H 'accept: application/json'
 ```
