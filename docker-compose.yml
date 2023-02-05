@@ -1,0 +1,40 @@
+services:
+  postgresdb:
+    container_name: postgres_container
+    image: postgres
+    environment:
+      POSTGRES_USER: scoth
+      POSTGRES_PASSWORD: tiger
+      POSTGRES_DB: chinook
+      PGDATA: /data/postgres
+    volumes:
+       - ../../databases/postgresdb:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+  
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4:4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: scoth.tiger@email.com
+      PGADMIN_DEFAULT_PASSWORD: 123456
+      PGADMIN_LISTEN_ADDRESS: 0.0.0.0
+    volumes:
+        - pgadmin_volume:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - postgres
+    restart: unless-stopped
+    depends_on:
+      - postgresdb
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+    pgadmin_volume:
