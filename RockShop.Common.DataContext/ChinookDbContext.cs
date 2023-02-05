@@ -38,7 +38,7 @@ public partial class ChinookDbContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Database=postgres;Username=scoth;Password=tiger");
+            optionsBuilder.UseNpgsql("Host=localhost;Database=chinook;Username=scoth;Password=tiger");
         }
         optionsBuilder.AddInterceptors(dataRefreshedInterceptor);
     }

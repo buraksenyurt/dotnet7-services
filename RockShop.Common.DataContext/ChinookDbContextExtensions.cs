@@ -7,7 +7,7 @@ namespace RockShop.Shared
     {
         public static IServiceCollection AddChinookDbContext(
             this IServiceCollection services
-            , string connStr = "Host=localhost;Database=postgres;Username=scoth;Password=tiger")
+            , string connStr = "Host=localhost;Database=chinook;Username=scoth;Password=tiger")
         {
             services.AddDbContext<ChinookDbContext>(options =>
             {
