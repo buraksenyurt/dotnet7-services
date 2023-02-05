@@ -63,4 +63,24 @@ app.MapGet("api/customers/{country}", (
     })
     .Produces<Customer>(StatusCodes.Status200OK);
 
+app.MapGet("api/invoices/totalsales/top/five", (
+    [FromServices] ChinookDbContext db) =>
+        (from i in db.Invoices
+         group i by i.BillingCountry into g
+         select new
+         {
+             BillingCountry = g.Key,
+             TotalSales = g.Sum(x => x.Total)
+         }).OrderByDescending(x => x.TotalSales)
+         .Take(5)
+    )
+    .WithName("TotalSalesByCountry")
+    .WithOpenApi(operation =>
+    {
+        operation.Description = "Total Sales By Country(Top Five)";
+        return operation;
+    })
+    .Produces<Invoice>(StatusCodes.Status200OK);
+
+
 app.Run();

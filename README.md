@@ -38,7 +38,6 @@ docker-compose up -d
 # Ping - Pong
 curl -X 'GET' 'http://localhost:5221/Ping' -H 'accept: text/plain'
 
-
 # Get albums with paging
 curl -X 'GET' 'http://localhost:5221/api/albums?page=5' -H 'accept: application/json'
 
@@ -47,4 +46,7 @@ curl -X 'GET' 'http://localhost:5221/api/albums/45' -H 'accept: application/json
 
 # Get customers which living in Portugal
 curl -X 'GET' 'http://localhost:5221/api/customers/Portugal' -H 'accept: application/json'
+
+# Top Five total sales by country
+curl -X 'GET' 'http://localhost:5221/api/invoices/totalsales/top/five' -H 'accept: application/json'
 ```
