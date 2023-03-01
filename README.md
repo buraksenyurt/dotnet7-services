@@ -17,7 +17,7 @@ dotnet tool update -g dotnet-ef
 
 # create model classes from Chinook Db
 # execute on RockShop.Common.Models project library
-dotnet ef dbcontext scaffold "Host=localhost;Database=postgres;Username=scoth;Password=tiger" Npgsql.EntityFrameworkCore.Postgresql --namespace RockShop.Shared --data-annotations
+dotnet ef dbcontext scaffold "Host=localhost;Database=chinook;Username=scoth;Password=tiger" Npgsql.EntityFrameworkCore.Postgresql --namespace RockShop.Shared --data-annotations
 
 # start existing container
 docker start postgresql
@@ -32,14 +32,30 @@ docker rm [container_id]
 docker-compose up -d
 ```
 
+## Run
+
+```bash
+# to run
+dotnet run
+
+# to run with https profile
+dotnet run --launch-profile https
+```
+
 ### Sample Requests
 
 ```bash
 # Ping - Pong
-curl -X 'GET' 'http://localhost:5221/Ping' -H 'accept: text/plain'
+curl -X 'GET' 'http://localhost:5221/ping' -H 'accept: text/plain'
 
 # Get albums with paging
 curl -X 'GET' 'http://localhost:5221/api/albums?page=5' -H 'accept: application/json'
+
+# Get albums by artist name
+curl -X 'GET' 'http://localhost:5221/api/albums/mfö' -H 'accept: application/json'
+
+# Get artists with paging
+curl -X 'GET' 'http://localhost:5221/api/artists?page=10' -H 'accept: application/json'
 
 # Get album by id
 curl -X 'GET' 'http://localhost:5221/api/albums/45' -H 'accept: application/json'
@@ -47,6 +63,55 @@ curl -X 'GET' 'http://localhost:5221/api/albums/45' -H 'accept: application/json
 # Get customers which living in Portugal
 curl -X 'GET' 'http://localhost:5221/api/customers/Portugal' -H 'accept: application/json'
 
-# Top Five total sales by country
-curl -X 'GET' 'http://localhost:5221/api/invoices/totalsales/top/five' -H 'accept: application/json'
+# Top * total sales by country
+curl -X 'GET' 'http://localhost:5221/api/invoices/totalsales/top/5' -H 'accept: application/json'
+curl -X 'GET' 'http://localhost:5221/api/invoices/totalsales/top/3' -H 'accept: application/json'
+curl -X 'GET' 'http://localhost:5221/api/invoices/totalsales/top/-1' -H 'accept: application/json'
+
+# Get Some Trucks informations with paging
+curl -X 'GET' 'http://localhost:5221/api/tracks?page=25' -H 'accept: application/json'
+
+# Add artist with albums
+curl -X 'POST' \
+  'http://localhost:5221/api/artists' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "name": "MFÖ",
+  "albums": [
+    {
+      "title": "Ele Gün Karşı Yapayalnız"
+    },
+
+    {
+      "title": "Peki peki anladık"
+    },
+    {
+      "title": "No Problem"
+    },
+    {
+      "title": "Vak The Rock"
+    },
+    {
+      "title": "Geldiler"
+    },
+    {
+      "title": "M.V.A.B."
+    }
+  ]
+}'
+
+# Delete album with id
+curl -X 'DELETE' 'http://localhost:5221/api/albums/1234' -H 'accept: */*'
+
+# Update artist name
+curl -X 'PUT' \
+  'http://localhost:5221/api/artists/284' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "name": "Mazhar Fuat Özkan"
+}'
 ```
+
+Also we can use [Postman collection](Chinook%20Rest%20Service%20[Net%207].postman_collection.json) to test service endpoints.
