@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 namespace RockShop.Shared;
 
 [Table("Customer")]
-[Index("SupportRepId", Name = "IFK_CustomerSupportRepId")]
 public partial class Customer
 {
     [Key]
@@ -47,11 +46,4 @@ public partial class Customer
     public string Email { get; set; } = null!;
 
     public int? SupportRepId { get; set; }
-
-    [InverseProperty("Customer")]
-    public virtual ICollection<Invoice> Invoices { get; } = new List<Invoice>();
-
-    [ForeignKey("SupportRepId")]
-    [InverseProperty("Customers")]
-    public virtual Employee? SupportRep { get; set; }
 }

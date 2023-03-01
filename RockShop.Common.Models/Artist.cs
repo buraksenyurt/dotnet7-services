@@ -14,7 +14,4 @@ public partial class Artist
 
     [StringLength(120)]
     public string? Name { get; set; }
-
-    [InverseProperty("Artist")]
-    public virtual ICollection<Album> Albums { get; } = new List<Album>();
 }

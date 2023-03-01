@@ -14,8 +14,4 @@ public partial class Playlist
 
     [StringLength(120)]
     public string? Name { get; set; }
-
-    [ForeignKey("PlaylistId")]
-    [InverseProperty("Playlists")]
-    public virtual ICollection<Track> Tracks { get; } = new List<Track>();
 }

@@ -48,101 +48,55 @@ public partial class ChinookDbContext : DbContext
     {
         modelBuilder.Entity<Album>(entity =>
         {
-            entity.Property(e => e.AlbumId).ValueGeneratedNever();
-
-            entity.HasOne(d => d.Artist).WithMany(p => p.Albums)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_AlbumArtistId");
+            entity.HasKey(e => e.AlbumId).HasName("Album_pkey");
         });
 
         modelBuilder.Entity<Artist>(entity =>
         {
-            entity.Property(e => e.ArtistId).ValueGeneratedNever();
+            entity.HasKey(e => e.ArtistId).HasName("Artist_pkey");
         });
 
         modelBuilder.Entity<Customer>(entity =>
         {
-            entity.Property(e => e.CustomerId).ValueGeneratedNever();
-
-            entity.HasOne(d => d.SupportRep).WithMany(p => p.Customers).HasConstraintName("FK_CustomerSupportRepId");
+            entity.HasKey(e => e.CustomerId).HasName("Customer_pkey");
         });
 
         modelBuilder.Entity<Employee>(entity =>
         {
-            entity.Property(e => e.EmployeeId).ValueGeneratedNever();
-
-            entity.HasOne(d => d.ReportsToNavigation).WithMany(p => p.InverseReportsToNavigation).HasConstraintName("FK_EmployeeReportsTo");
+            entity.HasKey(e => e.EmployeeId).HasName("Employee_pkey");
         });
 
         modelBuilder.Entity<Genre>(entity =>
         {
-            entity.Property(e => e.GenreId).ValueGeneratedNever();
+            entity.HasKey(e => e.GenreId).HasName("Genre_pkey");
         });
 
         modelBuilder.Entity<Invoice>(entity =>
         {
-            entity.Property(e => e.InvoiceId).ValueGeneratedNever();
-
-            entity.HasOne(d => d.Customer).WithMany(p => p.Invoices)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_InvoiceCustomerId");
+            entity.HasKey(e => e.InvoiceId).HasName("Invoice_pkey");
         });
 
         modelBuilder.Entity<InvoiceLine>(entity =>
         {
-            entity.Property(e => e.InvoiceLineId).ValueGeneratedNever();
-
-            entity.HasOne(d => d.Invoice).WithMany(p => p.InvoiceLines)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_InvoiceLineInvoiceId");
-
-            entity.HasOne(d => d.Track).WithMany(p => p.InvoiceLines)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_InvoiceLineTrackId");
+            entity.HasKey(e => e.InvoiceLineId).HasName("InvoiceLine_pkey");
         });
 
         modelBuilder.Entity<MediaType>(entity =>
         {
-            entity.Property(e => e.MediaTypeId).ValueGeneratedNever();
+            entity.HasKey(e => e.MediaTypeId).HasName("MediaType_pkey");
         });
 
         modelBuilder.Entity<Playlist>(entity =>
         {
-            entity.Property(e => e.PlaylistId).ValueGeneratedNever();
-
-            entity.HasMany(d => d.Tracks).WithMany(p => p.Playlists)
-                .UsingEntity<Dictionary<string, object>>(
-                    "PlaylistTrack",
-                    r => r.HasOne<Track>().WithMany()
-                        .HasForeignKey("TrackId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_PlaylistTrackTrackId"),
-                    l => l.HasOne<Playlist>().WithMany()
-                        .HasForeignKey("PlaylistId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_PlaylistTrackPlaylistId"),
-                    j =>
-                    {
-                        j.HasKey("PlaylistId", "TrackId");
-                        j.ToTable("PlaylistTrack");
-                        j.HasIndex(new[] { "TrackId" }, "IFK_PlaylistTrackTrackId");
-                    });
+            entity.HasKey(e => e.PlaylistId).HasName("Playlist_pkey");
         });
 
         modelBuilder.Entity<Track>(entity =>
         {
-            entity.Property(e => e.TrackId).ValueGeneratedNever();
-
-            entity.HasOne(d => d.Album).WithMany(p => p.Tracks).HasConstraintName("FK_TrackAlbumId");
-
-            entity.HasOne(d => d.Genre).WithMany(p => p.Tracks).HasConstraintName("FK_TrackGenreId");
-
-            entity.HasOne(d => d.MediaType).WithMany(p => p.Tracks)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_TrackMediaTypeId");
+            entity.HasKey(e => e.TrackId).HasName("Track_pkey");
         });
 
-        OnModelCreatingPartial(modelBuilder);
+        modelBuilder.UseSerialColumns();
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

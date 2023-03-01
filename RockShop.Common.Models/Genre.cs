@@ -14,7 +14,4 @@ public partial class Genre
 
     [StringLength(120)]
     public string? Name { get; set; }
-
-    [InverseProperty("Genre")]
-    public virtual ICollection<Track> Tracks { get; } = new List<Track>();
 }

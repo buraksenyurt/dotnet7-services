@@ -7,9 +7,6 @@ using Microsoft.EntityFrameworkCore;
 namespace RockShop.Shared;
 
 [Table("Track")]
-[Index("AlbumId", Name = "IFK_TrackAlbumId")]
-[Index("GenreId", Name = "IFK_TrackGenreId")]
-[Index("MediaTypeId", Name = "IFK_TrackMediaTypeId")]
 public partial class Track
 {
     [Key]
@@ -33,23 +30,4 @@ public partial class Track
 
     [Precision(10, 2)]
     public decimal UnitPrice { get; set; }
-
-    [ForeignKey("AlbumId")]
-    [InverseProperty("Tracks")]
-    public virtual Album? Album { get; set; }
-
-    [ForeignKey("GenreId")]
-    [InverseProperty("Tracks")]
-    public virtual Genre? Genre { get; set; }
-
-    [InverseProperty("Track")]
-    public virtual ICollection<InvoiceLine> InvoiceLines { get; } = new List<InvoiceLine>();
-
-    [ForeignKey("MediaTypeId")]
-    [InverseProperty("Tracks")]
-    public virtual MediaType MediaType { get; set; } = null!;
-
-    [ForeignKey("TrackId")]
-    [InverseProperty("Tracks")]
-    public virtual ICollection<Playlist> Playlists { get; } = new List<Playlist>();
 }

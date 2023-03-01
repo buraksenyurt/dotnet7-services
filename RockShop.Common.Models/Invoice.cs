@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 namespace RockShop.Shared;
 
 [Table("Invoice")]
-[Index("CustomerId", Name = "IFK_InvoiceCustomerId")]
 public partial class Invoice
 {
     [Key]
@@ -35,11 +34,4 @@ public partial class Invoice
 
     [Precision(10, 2)]
     public decimal Total { get; set; }
-
-    [ForeignKey("CustomerId")]
-    [InverseProperty("Invoices")]
-    public virtual Customer Customer { get; set; } = null!;
-
-    [InverseProperty("Invoice")]
-    public virtual ICollection<InvoiceLine> InvoiceLines { get; } = new List<InvoiceLine>();
 }

@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace RockShop.Shared;
 
 [Table("Employee")]
-[Index("ReportsTo", Name = "IFK_EmployeeReportsTo")]
 public partial class Employee
     : IDataRefreshed
 {
@@ -52,16 +53,6 @@ public partial class Employee
 
     [StringLength(60)]
     public string? Email { get; set; }
-
-    [InverseProperty("SupportRep")]
-    public virtual ICollection<Customer> Customers { get; } = new List<Customer>();
-
-    [InverseProperty("ReportsToNavigation")]
-    public virtual ICollection<Employee> InverseReportsToNavigation { get; } = new List<Employee>();
-
-    [ForeignKey("ReportsTo")]
-    [InverseProperty("InverseReportsToNavigation")]
-    public virtual Employee? ReportsToNavigation { get; set; }
 
     [NotMapped]
     public DateTimeOffset LastRefreshed { get; set; }
