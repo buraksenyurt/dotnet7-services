@@ -1,0 +1,168 @@
+{
+	"info": {
+		"_postman_id": "65aef11e-172a-4cd0-94d1-d8820bbd5c1d",
+		"name": "Chinook Rest Service [Net 7]",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "1401662"
+	},
+	"item": [
+		{
+			"name": "Get albums by paging",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5221/api/albums?page=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5221",
+					"path": [
+						"api",
+						"albums"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get artists by paging",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5221/api/artists?page=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5221",
+					"path": [
+						"api",
+						"artists"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add artist by albums",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Barış Manço\",\n    \"albums\": [\n        {\n            \"title\": \"Yeni Bir Gün\"\n        },\n        {\n            \"title\": \"Baris Mancho\"\n        },\n        {\n            \"title\": \"Müsadenizle Çocuklar\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5221/api/artists"
+			},
+			"response": []
+		},
+		{
+			"name": "Get tracks by paging",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Get album info with id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5221/api/albums/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Get albums by artist name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5221/api/albums/barış manço"
+			},
+			"response": []
+		},
+		{
+			"name": "Get customers by country",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5221/api/customers/Portugal"
+			},
+			"response": []
+		},
+		{
+			"name": "Total sales by country(5)",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Total sales by country(10)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5221/api/invoices/totalsales/top/10"
+			},
+			"response": []
+		},
+		{
+			"name": "Get artist by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5221/api/artists/285"
+			},
+			"response": []
+		},
+		{
+			"name": "Update artist name",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Baris Mancho\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5221/api/artists/285"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete album by id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:5221/api/albums/375"
+			},
+			"response": []
+		}
+	]
+}
