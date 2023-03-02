@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Albums by artist name";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    <div>
+        <input id="artistName" placeholder="Which artist?" />
+        <input id="getAlbumsButton" type="button" value="Get Albums" />
+    </div>
+    <div>
+        <table id="albumsTable" class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Album Names</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+
+            </tbody>
+        </table>
+    </div>
+    <script>
+        var apiAddress = "http://localhost:5221/";
+        var xhr = new XMLHttpRequest();
+
+        function xhr_load() {
+            console.log(this.responseText);
+            var albums = JSON.parse(this.responseText);
+            var output = "";
+            for (var i = 0; i < albums.length; i++) {
+                output += '<tr><td><a href="' + apiAddress + 'api/albums/' + albums[i].albumId + '">' + albums[i].title + '</a></td></tr>';
+            }
+
+            document.getElementById("tableBody").innerHTML = output;
+        }
+        xhr.addEventListener("load", xhr_load);
+
+        function getAlbumsButton_click() {
+            xhr.open("GET", apiAddress + "api/albums/" + document.getElementById("artistName").value);
+            xhr.send();
+        }
+
+        document.getElementById("getAlbumsButton").addEventListener("click", getAlbumsButton_click);                
+    </script>
+</div>
