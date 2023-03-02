@@ -5,5 +5,9 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\RockShop.Common.Models\RockShop.Common.Models.csproj" />
+  </ItemGroup>
 
 </Project>

@@ -1,0 +1,37 @@
+@using RockShop.Shared
+@model IEnumerable<Album>?
+@{
+    ViewData["Title"] = "Albums by Artist Name";
+}
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    <div>
+        In this call we don't get CORS error.
+    </div>
+    <form action="/home/albums">
+        <input name="artistName" placeholder="Which artist?" />
+        <input type="submit" value="Get Albums" />
+    </form>
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Album Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model is not null)
+                {
+                    @foreach (Album albm in Model)
+                    {
+                        <tr>
+                            <td>
+                                <a href="@(ViewData["apiAddress"])api/albums/@albm.AlbumId">@albm.Title</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
