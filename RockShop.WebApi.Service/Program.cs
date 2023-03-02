@@ -1,14 +1,19 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.OpenApi;
 using RockShop.Shared;
 using RockShop.WebApi.Service.Dtos.Response;
+using Microsoft.AspNetCore.HttpLogging;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddChinookDbContext();
+builder.Services.AddHttpLogging(options =>
+{
+    options.RequestHeaders.Add("Origin");
+    options.LoggingFields = HttpLoggingFields.All;
+});
 
 var app = builder.Build();
 
@@ -17,6 +22,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseHttpLogging();
 
 app.UseHttpsRedirection();
 
