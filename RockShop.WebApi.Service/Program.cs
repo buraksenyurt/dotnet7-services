@@ -35,7 +35,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpLogging();
-app.UseCors(policyName: pnMvcClient);
+// app.UseCors(policyName: pnMvcClient); // Enabled the same CORS policy for the whole api service.
+app.UseCors(); // CORS Policy added but not active
 
 app.UseHttpsRedirection();
 
@@ -105,7 +106,8 @@ app.MapGet("api/albums/{id:int}", async Task<Results<Ok<Album>, NotFound>> (
         return operation;
     })
     .Produces<Album>(StatusCodes.Status200OK)
-    .Produces(StatusCodes.Status404NotFound);
+    .Produces(StatusCodes.Status404NotFound)
+    .RequireCors(policyName: pnMvcClient); // Enabled CORS policy for this endpoint
 
 
 app.MapGet("api/customers/{country}", (
@@ -176,7 +178,8 @@ app.MapGet("api/albums/{artistName}", (
         operation.Description = "Get albums by artist name";
         return operation;
     })
-    .Produces<List<Album>>(StatusCodes.Status200OK);
+    .Produces<List<Album>>(StatusCodes.Status200OK)
+    .RequireCors(policyName: pnMvcClient); // Enabled CORS policy for this endpoint
 
 app.MapGet("api/artists/{id:int}", async Task<Results<Ok<Artist>, NotFound>> (
     [FromServices] ChinookDbContext db,
