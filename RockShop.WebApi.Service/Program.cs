@@ -14,6 +14,17 @@ builder.Services.AddHttpLogging(options =>
     options.RequestHeaders.Add("Origin");
     options.LoggingFields = HttpLoggingFields.All;
 });
+// With following CORS implementation the index.cshtml page on Mvc Client works without browser CORS error.
+var pnMvcClient = "RockShopMvcClient";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+        name: pnMvcClient
+        , policy =>
+        {
+            policy.WithOrigins("http://localhost:5233");
+        });
+});
 
 var app = builder.Build();
 
@@ -24,6 +35,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpLogging();
+app.UseCors(policyName: pnMvcClient);
 
 app.UseHttpsRedirection();
 
