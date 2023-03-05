@@ -5,7 +5,13 @@ using RockShop.WebApi.Service.Dtos.Response;
 using Microsoft.AspNetCore.HttpLogging;
 using AspNetCoreRateLimit;
 
-bool UseMicrosoftRateLimits = false;
+// Net 7.0 Rate Limiting(PreRelease)
+using Microsoft.AspNetCore.RateLimiting;
+using System.Threading.RateLimiting;
+
+// To use 3rd Party Rate Limitings set to false 
+//otherwise for using AspNet core internal rate limiting middleware set to true
+bool UseMicrosoftRateLimits = true;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +34,7 @@ if (!UseMicrosoftRateLimits)
     // Register the configuration to DI Services in a Singleton lifetime mode
     builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
 }
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -56,13 +63,30 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // Load rate limit policies from configuration by using Seed function
-if (!UseMicrosoftRateLimits)
+if (!UseMicrosoftRateLimits) // if 3rd party rate limiter is active
 {
     using (IServiceScope scope = app.Services.CreateScope())
     {
         IClientPolicyStore cps = scope.ServiceProvider.GetRequiredService<IClientPolicyStore>();
         await cps.SeedAsync();
     }
+}
+else
+{
+    // Using Microsoft Rate Limiter
+    RateLimiterOptions rateLimiterOptions = new();
+    // Look at where we use "only1ReqPer10Seconds" alias in this code
+    rateLimiterOptions.AddFixedWindowLimiter(
+        policyName: "only1ReqPer10Seconds", options =>
+        {
+            options.PermitLimit = 1; // Only one request
+            options.QueueLimit = 2; // Max queue limit
+            options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst; // Oldest request processing first
+            options.Window = TimeSpan.FromSeconds(10); // Rate limit durations in seconds
+        }
+    );
+    // Add middleware to this application
+    app.UseRateLimiter(rateLimiterOptions);
 }
 
 if (app.Environment.IsDevelopment())
@@ -96,7 +120,8 @@ app.MapGet("api/albums", (
         operation.Description = "Get albums with paging";
         return operation;
     })
-    .Produces<Album[]>(StatusCodes.Status200OK);
+    .Produces<Album[]>(StatusCodes.Status200OK)
+    .RequireRateLimiting("only1ReqPer10Seconds"); // We use Microsoft's rate limiting rules which defined by "only1ReqPer10Seconds" alias for this request.
 
 app.MapGet("api/artists", (
     [FromServices] ChinookDbContext db,
