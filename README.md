@@ -120,13 +120,25 @@ Also we can use [Postman collection](Chinook%20Rest%20Service%20[Net%207].postma
 
 Use following steps to test CORS with clients.
 
-- First of all start the RockShop.WebApi.Service project.
-- Start RockShop.WebApi.Client.MVC project secondly.
-- Then go to http://localhost:5233 address and search for some artists with Get Albums button.
-- Also go to http://localhost:5233/home/albums address.
+- First of all start the **RockShop.WebApi.Service** project.
+- Start **RockShop.WebApi.Client.MVC** project secondly.
+- Then go to **http://localhost:5233 address** and search for some artists with Get Albums button.
+- Also go to **http://localhost:5233/home/albums** address.
 
 In all cases please look at browser debugger(by press F12)
 
-### Rate Limiting Test
+### Rate Limiting Test _(With 3rd Party Package)_
 
-You can use RockShop.WebApi.Client.Console project to test Rate Limitings.
+You can use RockShop.WebApi.Client.Console project to test Rate Limitings. _(For any client id with decorate random guid, the rate limits is 2 request per 6 seconds)_ .For specific client test on client app use **"terminal-client-development"** value _(Just one call in 10 seconds)_ . In this case different rate limit policies applies which defined in appSettings for client app. Also we can use **"development-team"** for client identity. In this case rate limits does not apply to the client app.
+
+**case 1 _(Client Id = Random)_**
+
+![assets/rate_limit_01.png](assets/rate_limit_01.png)
+
+**case 2 _(Client Id = development-team)_**
+
+![assets/rate_limit_02.png](assets/rate_limit_02.png)
+
+**case 3 _(Client Id = terminal-client-development)_**
+
+![assets/rate_limit_03.png](assets/rate_limit_03.png)
