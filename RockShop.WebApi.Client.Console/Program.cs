@@ -28,7 +28,7 @@ client.DefaultRequestHeaders.Add("Client-Identity", clientName);
 while (true)
 {
     Write("{0:hh:mm:ss}", DateTime.UtcNow);
-
+    int waitTime = 1;
     try
     {
         // A sample HTTP Get request for fetching albums
@@ -52,7 +52,10 @@ while (true)
 
             // Get retry after values from Response header(For informational purposes only)
             var retryTime = response.Headers.GetValues("Retry-After").ToArray()[0];
-            WriteLine($"Retry after {retryTime} seconds");
+            if (Int32.TryParse(retryTime, out waitTime))
+            {
+                WriteLine($"Retry after {waitTime} seconds");
+            }
         }
     }
     catch (Exception e)
@@ -61,5 +64,5 @@ while (true)
     }
 
     // Wait for secodns just to simulate the DDOS
-    await Task.Delay(TimeSpan.FromSeconds(1));
+    await Task.Delay(TimeSpan.FromSeconds(waitTime));
 }
