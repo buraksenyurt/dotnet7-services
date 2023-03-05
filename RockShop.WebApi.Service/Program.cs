@@ -3,8 +3,31 @@ using Microsoft.AspNetCore.Mvc;
 using RockShop.Shared;
 using RockShop.WebApi.Service.Dtos.Response;
 using Microsoft.AspNetCore.HttpLogging;
+using AspNetCoreRateLimit;
+
+bool UseMicrosoftRateLimits = false;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Rate Limit Service middleware
+// Using rate limits from appSettings for Clients
+if (!UseMicrosoftRateLimits)
+{
+    // Rate limit counters and rules reside in memory
+    builder.Services.AddMemoryCache();
+    builder.Services.AddInMemoryRateLimiting();
+
+    // Read rate limit options from appSettings section
+    builder.Services.Configure<ClientRateLimitOptions>(
+        builder.Configuration.GetSection("ClientRateLimits")
+    );
+    // Read rate limit policies from appSettings section
+    builder.Services.Configure<ClientRateLimitPolicies>(
+        builder.Configuration.GetSection("ClientRateLimitsPolicies")
+    );
+    // Register the configuration to DI Services in a Singleton lifetime mode
+    builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+}
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -12,6 +35,10 @@ builder.Services.AddChinookDbContext();
 builder.Services.AddHttpLogging(options =>
 {
     options.RequestHeaders.Add("Origin");
+    // Rate limiting headers
+    options.RequestHeaders.Add("Client-Identity");
+    options.RequestHeaders.Add("Retry-After");
+
     options.LoggingFields = HttpLoggingFields.All;
 });
 // With following CORS implementation the index.cshtml page on Mvc Client works without browser CORS error.
@@ -28,6 +55,16 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+// Load rate limit policies from configuration by using Seed function
+if (!UseMicrosoftRateLimits)
+{
+    using (IServiceScope scope = app.Services.CreateScope())
+    {
+        IClientPolicyStore cps = scope.ServiceProvider.GetRequiredService<IClientPolicyStore>();
+        await cps.SeedAsync();
+    }
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -35,6 +72,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpLogging();
+
+// Use rate limit
+if (!UseMicrosoftRateLimits)
+{
+    app.UseClientRateLimiting();
+}
+
 // app.UseCors(policyName: pnMvcClient); // Enabled the same CORS policy for the whole api service.
 app.UseCors(); // CORS Policy added but not active
 
