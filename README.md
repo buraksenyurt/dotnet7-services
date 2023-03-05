@@ -115,3 +115,18 @@ curl -X 'PUT' \
 ```
 
 Also we can use [Postman collection](Chinook%20Rest%20Service%20[Net%207].postman_collection.json) to test service endpoints.
+
+### CORS Clients
+
+Use following steps to test CORS with clients.
+
+- First of all start the RockShop.WebApi.Service project.
+- Start RockShop.WebApi.Client.MVC project secondly.
+- Then go to http://localhost:5233 address and search for some artists with Get Albums button.
+- Also go to http://localhost:5233/home/albums address.
+
+In all cases please look at browser debugger(by press F12)
+
+### Rate Limiting Test
+
+You can use RockShop.WebApi.Client.Console project to test Rate Limitings.
