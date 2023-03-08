@@ -79,8 +79,32 @@
 		{
 			"name": "Get tracks by paging",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImJ1cmFrcyIsInN1YiI6ImJ1cmFrcyIsImp0aSI6ImU1YTlkOTIyIiwiYXVkIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NDcwOTciLCJodHRwczovL2xvY2FsaG9zdDo0NDMyOCIsImh0dHA6Ly9sb2NhbGhvc3Q6NTIyMSIsImh0dHBzOi8vbG9jYWxob3N0OjcyNDQiXSwibmJmIjoxNjc4Mjg5NDg2LCJleHAiOjE2ODYyMzgyODYsImlhdCI6MTY3ODI4OTQ4NywiaXNzIjoiZG90bmV0LXVzZXItand0cyJ9.K1dTwDl7H0RggoTMowgKxas92tPr3k5_OtQS7eQU8IM"
+					}
+				},
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5221/api/tracks?page=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5221",
+					"path": [
+						"api",
+						"tracks"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
 			},
 			"response": []
 		},
