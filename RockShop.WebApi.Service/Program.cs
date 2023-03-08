@@ -9,11 +9,18 @@ using AspNetCoreRateLimit;
 using Microsoft.AspNetCore.RateLimiting;
 using System.Threading.RateLimiting;
 
+// For JWT Authentication
+using System.Security.Claims;
+
 // To use 3rd Party Rate Limitings set to false 
 //otherwise for using AspNet core internal rate limiting middleware set to true
 bool UseMicrosoftRateLimits = true;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Authorization and Authentication services added
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication(defaultScheme: "Bearer").AddJwtBearer(); // Use Bearer token
 
 // Rate Limit Service middleware
 // Using rate limits from appSettings for Clients
@@ -61,6 +68,9 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+// Add Authorization middleware to application runtime
+app.UseAuthorization();
 
 // Load rate limit policies from configuration by using Seed function
 if (!UseMicrosoftRateLimits) // if 3rd party rate limiter is active
@@ -160,7 +170,8 @@ app.MapGet("api/tracks", (
         operation.Description = "All tracks with paging";
         return operation;
     })
-    .Produces<TrackDto>(StatusCodes.Status200OK);
+    .Produces<TrackDto>(StatusCodes.Status200OK)
+    .RequireAuthorization(); // This endpoint uses Bearer Token Authorization
 
 
 app.MapGet("api/albums/{id:int}", async Task<Results<Ok<Album>, NotFound>> (
