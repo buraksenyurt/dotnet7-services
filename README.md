@@ -54,7 +54,7 @@ curl -X 'GET' 'http://localhost:5221/api/albums?page=5' -H 'accept: application/
 # Get albums by artist name
 curl -X 'GET' 'http://localhost:5221/api/albums/mfö' -H 'accept: application/json'
 
-# Get artists with paging
+# Get artists with paging (You have to use Bearer Token for this request)
 curl -X 'GET' 'http://localhost:5221/api/artists?page=10' -H 'accept: application/json'
 
 # Get album by id
@@ -142,3 +142,34 @@ You can use RockShop.WebApi.Client.Console project to test Rate Limitings. _(For
 **case 3 _(Client Id = terminal-client-development)_**
 
 ![assets/rate_limit_03.png](assets/rate_limit_03.png)
+
+### JWT Bearer Authorization
+
+The JWT Bearer token-based authorization system has also been added to the service application. Symbolically implemented only for Endpoint, which pulls Tracks information. Under normal circumstances, we need to prove ourselves to the system with an identity mechanism with a user name, password, fingerprint, etc. (Authentication). However, we can create a permanent token for developments in the local development environment with the user-jwts tool.
+
+```bash
+# In the RockShop.WebApi.Service project folder
+dotnet user-jwts create
+
+# Running this command generates a token. Token details can be seen using the ID information.
+dotnet user-jwts print e5a9d922 --show-all
+```
+
+![assets/jwt_01.png](assets/jwt_01.png)
+
+![assets/jwt_02.png](assets/jwt_02.png)
+
+In addition, the Authentication tab is added to the appsettings.development.json file related to the generated token. This content contains valid authorization information for the Bearer token. Of course for testing purposes.
+
+We get HTTP 401 Unauthorized Error for the following request.
+
+```bash
+curl -X 'GET' 'http://localhost:5221/api/tracks?page=1' -H 'accept: application/json'
+```
+
+![assets/jwt_03.png](assets/jwt_03.png)
+
+For this reason we have to use Bearer Tokek on request.
+
+![assets/jwt_04.png](assets/jwt_04.png)
+
