@@ -1,8 +1,6 @@
 # .Net 7 App Services
 
-In this repo, I include the codes that I try to examine the service development strategies on the .Net 7 side through a sample solution.
-
-Solution uses a simple and popular database, chinook. Database provider is Postgresql and reside on docker container.
+In this repo, I include the codes that I try to examine the service development strategies on the .Net 7 side through a sample solution. Solution uses a simple and popular database, chinook. Database provider is Postgresql and reside on docker container.
 
 ## Some Useful Informations
 
@@ -32,7 +30,7 @@ docker rm [container_id]
 docker-compose up -d
 ```
 
-## Run
+## Run _(RockShop.WebApi)_
 
 ```bash
 # to run
@@ -42,7 +40,7 @@ dotnet run
 dotnet run --launch-profile https
 ```
 
-### Sample Requests
+### Sample Requests _(RockShop.WebApi)_
 
 ```bash
 # Ping - Pong
@@ -116,7 +114,7 @@ curl -X 'PUT' \
 
 Also we can use [Postman collection](Chinook%20Rest%20Service%20[Net%207].postman_collection.json) to test service endpoints.
 
-### CORS Clients
+### CORS Clients _(RockShop.WebApi)_
 
 Use following steps to test CORS with clients.
 
@@ -127,7 +125,7 @@ Use following steps to test CORS with clients.
 
 In all cases please look at browser debugger(by press F12)
 
-### Rate Limiting Test _(With 3rd Party Package)_
+### Rate Limiting Test _(With 3rd Party Package)_ _(RockShop.WebApi)_
 
 You can use RockShop.WebApi.Client.Console project to test Rate Limitings. _(For any client id with decorate random guid, the rate limits is 2 request per 6 seconds)_ .For specific client test on client app use **"terminal-client-development"** value _(Just one call in 10 seconds)_ . In this case different rate limit policies applies which defined in appSettings for client app. Also we can use **"development-team"** for client identity. In this case rate limits does not apply to the client app.
 
@@ -143,7 +141,7 @@ You can use RockShop.WebApi.Client.Console project to test Rate Limitings. _(For
 
 ![assets/rate_limit_03.png](assets/rate_limit_03.png)
 
-### JWT Bearer Authorization
+### JWT Bearer Authorization _(RockShop.WebApi)_
 
 The JWT Bearer token-based authorization system has also been added to the service application. Symbolically implemented only for Endpoint, which pulls Tracks information. Under normal circumstances, we need to prove ourselves to the system with an identity mechanism with a user name, password, fingerprint, etc. (Authentication). However, we can create a permanent token for developments in the local development environment with the user-jwts tool.
 
@@ -173,3 +171,29 @@ For this reason we have to use Bearer Tokek on request.
 
 ![assets/jwt_04.png](assets/jwt_04.png)
 
+## OData Sample
+
+To test OData service we can use following commands.
+
+```bash
+# To get metadata
+curl -X 'GET' 'http://localhost:5120/music/$metadata' -H 'accept: application/json;odata.metadata=minimal;odata.streaming=true'
+
+# Get album by id
+curl -X 'GET' 'http://localhost:5120/music/Albums/1' -H 'accept: */*'
+
+# Get all albums
+curl -X 'GET' 'http://localhost:5120/music/Albums' -H 'accept: */*'
+
+# Get total count of albums
+curl -X 'GET' 'http://localhost:5120/music/Albums/$count' -H 'accept: */*'
+
+# Get all artists
+curl -X 'GET' 'http://localhost:5120/music/Artists' -H 'accept: */*'
+
+# Get total count of artists
+curl -X 'GET' 'http://localhost:5120/music/Artists/$count' -H 'accept: */*'
+
+# Get specicif artist by id
+curl -X 'GET' 'http://localhost:5120/music/Artists(16)' -H 'accept: */*'
+```
