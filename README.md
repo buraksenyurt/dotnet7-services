@@ -197,3 +197,33 @@ curl -X 'GET' 'http://localhost:5120/music/Artists/$count' -H 'accept: */*'
 # Get specicif artist by id
 curl -X 'GET' 'http://localhost:5120/music/Artists(16)' -H 'accept: */*'
 ```
+
+### OData Standard Query Materials
+
+Query options; $select, $expand, $filter, $orderby, $skip, $top
+Query parameters; eq, ne, lt, gt, le, ge, and, or, not, add, sub, mul, div, mod
+Query functions; startswith, endswith, concat, contains, indexof, length, substring, tolower, toupper, trim, now, day, month, year, hour, minute, second
+
+Some usages;
+
+```bash
+# Top 10 Album titles
+curl -X 'GET' 'http://localhost:5120/music/albums/?$select=title&top=10' -H 'accept: */*'
+
+# Top 10 Album titles but descending order
+curl -X 'GET' 'http://localhost:5120/music/albums/?$orderby=title%20desc&$select=title&top=10' -H 'accept: */*'
+
+# Albums which title starts with letter D
+curl -X 'GET' 'http://localhost:5120/music/albums/?$filter=startswith(Title,%27D%27)&select=AlbumId,Title' -H 'accept: */*'
+
+# EF runs the following query for the above OData query
+# SELECT a."AlbumId", a."Title"
+#      FROM "Album" AS a
+#      WHERE @__TypedProperty_0 = '' OR ((a."Title" LIKE @__TypedProperty_0_1 || '%' ESCAPE '') 
+#      AND left(a."Title", length(@__TypedProperty_0))::character varying(160) = @__TypedProperty_0::character varying(160))
+
+
+# Returns a list of songs whose size is below a certain value.
+curl -X 'GET' 'http://localhost:5120/music/tracks/?$filter=Bytes%20lt%201024000&$select=TrackId,Name,AlbumId,Bytes' -H 'accept: */*'
+
+```
