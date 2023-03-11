@@ -26,4 +26,26 @@ public class ArtistsController
     {
         return Ok(_context.Artists.Where(a => a.ArtistId == key));
     }
+
+    // Sample Post operation. In practical OData services does not contain Create,Update, Delete operations.
+    // But there is a support for this.
+    public IActionResult Post([FromBody] Artist artist)
+    {
+        _context.Artists.Add(artist);
+        _context.SaveChanges();
+        return Created(artist);
+    }
+
+    public IActionResult Delete(int key)
+    {
+        var artist = _context.Artists.Where(a => a.ArtistId == key).FirstOrDefault();
+
+        if (artist == null)
+            return NotFound("{key} not found");
+
+        _context.Artists.Remove(artist);
+        _context.SaveChanges();
+
+        return NoContent();
+    }
 }

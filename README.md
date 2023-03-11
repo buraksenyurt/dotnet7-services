@@ -201,7 +201,18 @@ curl -X 'GET' 'http://localhost:5120/jukebox/Artists(16)' -H 'accept: */*'
 curl -X 'GET' 'http://localhost:5120/jukebox/v1/Tracks/12' -H 'accept: */*'
 curl -X 'GET' 'http://localhost:5120/jukebox/v2/Tracks/12' -H 'accept: */*'
 
-
+# OData services are usually built on querying resources. 
+# However, it also allows operations such as Insert, Update, Delete.
+# Sample Insert request
+curl -X 'POST' \
+  'http://localhost:5120/jukebox/v1/Artists' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json;odata.metadata=minimal;odata.streaming=true' \
+  -d '{
+  "name": "Mazhar Fuat Özkan"
+}'
+# Sample Delete request for artist
+curl -X 'DELETE' 'http://localhost:5120/jukebox/v1/Artists/287' -H 'accept: */*'
 ```
 
 ### OData Standard Query Materials
