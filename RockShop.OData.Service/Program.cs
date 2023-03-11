@@ -9,7 +9,7 @@ builder.Services.AddChinookDbContext();
 builder.Services
     .AddControllers()
     .AddOData(options => options
-                        .AddRouteComponents(routePrefix: "music", model: GetEdmModelForMusics())
+                        .AddRouteComponents(routePrefix: "jukebox/v{version}", model: GetEdmModelForJukebox())
                         .Select()
                         .Expand()
                         .Filter()

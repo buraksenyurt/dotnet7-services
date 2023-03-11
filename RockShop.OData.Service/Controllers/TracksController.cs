@@ -16,14 +16,33 @@ public class TracksController
     }
 
     [EnableQuery]
-    public IActionResult Get()
+    public IActionResult Get(string version = "1")
     {
         return Ok(_context.Tracks);
     }
 
     [EnableQuery]
-    public IActionResult Get(int key)
+    public IActionResult Get(int key, string version = "1")
     {
-        return Ok(_context.Tracks.Where(a => a.TrackId == key));
+        var tracks = _context.Tracks.Where(a => a.TrackId == key);
+        Track? track = tracks.FirstOrDefault();
+        if (tracks == null || track == null)
+        {
+            return NotFound($"Track {key} not found");
+        }
+
+        if (version == "2")
+        {
+            var filtered = tracks.Select(t => new
+            {
+                t.Name,
+                t.Composer,
+                t.AlbumId,
+                t.MediaTypeId
+            });
+            return Ok(filtered);
+        }
+
+        return Ok(track);
     }
 }

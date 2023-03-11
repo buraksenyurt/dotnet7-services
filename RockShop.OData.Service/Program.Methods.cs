@@ -3,7 +3,7 @@ using Microsoft.OData.ModelBuilder;
 using RockShop.Shared;
 partial class Program
 {
-    static IEdmModel GetEdmModelForMusics()
+    static IEdmModel GetEdmModelForJukebox()
     {
         ODataConventionModelBuilder builder = new();
         builder.EntitySet<Album>("Albums");
