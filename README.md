@@ -180,22 +180,22 @@ To test OData service we can use following commands.
 curl -X 'GET' 'http://localhost:5120/jukebox/$metadata' -H 'accept: application/json;odata.metadata=minimal;odata.streaming=true'
 
 # Get album by id
-curl -X 'GET' 'http://localhost:5120/jukebox/Albums/1' -H 'accept: */*'
+curl -X 'GET' 'http://localhost:5120/jukebox/v1/Albums/1' -H 'accept: */*'
 
 # Get all albums
-curl -X 'GET' 'http://localhost:5120/jukebox/Albums' -H 'accept: */*'
+curl -X 'GET' 'http://localhost:5120/jukebox/v1/Albums' -H 'accept: */*'
 
 # Get total count of albums
-curl -X 'GET' 'http://localhost:5120/jukebox/Albums/$count' -H 'accept: */*'
+curl -X 'GET' 'http://localhost:5120/jukebox/v1/Albums/$count' -H 'accept: */*'
 
 # Get all artists
-curl -X 'GET' 'http://localhost:5120/jukebox/Artists' -H 'accept: */*'
+curl -X 'GET' 'http://localhost:5120/jukebox/v1/Artists' -H 'accept: */*'
 
 # Get total count of artists
-curl -X 'GET' 'http://localhost:5120/jukebox/Artists/$count' -H 'accept: */*'
+curl -X 'GET' 'http://localhost:5120/jukebox/v1/Artists/$count' -H 'accept: */*'
 
 # Get specicif artist by id
-curl -X 'GET' 'http://localhost:5120/jukebox/Artists(16)' -H 'accept: */*'
+curl -X 'GET' 'http://localhost:5120/jukebox/v1/Artists(16)' -H 'accept: */*'
 
 # After version usage added
 curl -X 'GET' 'http://localhost:5120/jukebox/v1/Tracks/12' -H 'accept: */*'
@@ -225,13 +225,13 @@ Some usages;
 
 ```bash
 # Top 10 Album titles
-curl -X 'GET' 'http://localhost:5120/jukebox/albums/?$select=title&top=10' -H 'accept: */*'
+curl -X 'GET' 'http://localhost:5120/jukebox/v1/albums/?$select=title&top=10' -H 'accept: */*'
 
 # Top 10 Album titles but descending order
-curl -X 'GET' 'http://localhost:5120/jukebox/albums/?$orderby=title%20desc&$select=title&top=10' -H 'accept: */*'
+curl -X 'GET' 'http://localhost:5120/jukebox/v1/albums/?$orderby=title%20desc&$select=title&top=10' -H 'accept: */*'
 
 # Albums which title starts with letter D
-curl -X 'GET' 'http://localhost:5120/jukebox/albums/?$filter=startswith(Title,%27D%27)&select=AlbumId,Title' -H 'accept: */*'
+curl -X 'GET' 'http://localhost:5120/jukebox/v1/albums/?$filter=startswith(Title,%27D%27)&select=AlbumId,Title' -H 'accept: */*'
 
 # EF runs the following query for the above OData query
 # SELECT a."AlbumId", a."Title"
@@ -241,6 +241,11 @@ curl -X 'GET' 'http://localhost:5120/jukebox/albums/?$filter=startswith(Title,%2
 
 
 # Returns a list of songs whose size is below a certain value.
-curl -X 'GET' 'http://localhost:5120/jukebox/tracks/?$filter=Bytes%20lt%201024000&$select=TrackId,Name,AlbumId,Bytes' -H 'accept: */*'
-
+curl -X 'GET' 'http://localhost:5120/jukebox/v1/tracks/?$filter=Bytes%20lt%201024000&$select=TrackId,Name,AlbumId,Bytes' -H 'accept: */*'
 ```
+
+### OData MVC Client Test
+
+Start RockShop.OData.Service projcet first and than start the RockShop.OData.Client.Mvc project.
+
+![assets/odata_client_01.png](assets/odata_client_01.png)
