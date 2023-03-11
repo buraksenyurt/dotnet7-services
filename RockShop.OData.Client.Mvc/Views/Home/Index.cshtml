@@ -1,8 +1,35 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@using RockShop.Shared;
 
+@{
+    ViewData["Title"] = "JukeBox Client";
+    Album[]? albums = ViewData["albums"] as Album[];
+}
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    @if (albums is not null)
+    {
+        <h2>The albums that starts with '@ViewData["albumNameStartsWith"]'</h2>
+        <p>
+            @if (albums.Length == 0)
+            {
+            <p>No albums found</p>
+            }
+            else
+            {
+            <table>
+                    @foreach (Album a in albums)
+                    {
+                    <tr>
+                        <td>@a.AlbumId</td>
+                        <td>@a.Title</td>
+                    </tr>
+                    }
+            </table>
+            }
+        </p>
+    }
+    <form method="get">
+        Album names starts with: <input name="nameWith" value="@ViewData["albumNameStartsWith"]" />
+        Press enter...
+    </form>
 </div>
