@@ -217,7 +217,7 @@ curl -X 'DELETE' 'http://localhost:5120/jukebox/v1/Artists/287' -H 'accept: */*'
 
 ### OData Standard Query Materials
 
-Query options; $select, $expand, $filter, $orderby, $skip, $top
+Query options; $select, $expand, $filter, $orderby, $skip, $top _([Grouping and Aggregation Support](https://learn.microsoft.com/en-us/odata/client/grouping-and-aggregation))_
 Query parameters; eq, ne, lt, gt, le, ge, and, or, not, add, sub, mul, div, mod
 Query functions; startswith, endswith, concat, contains, indexof, length, substring, tolower, toupper, trim, now, day, month, year, hour, minute, second
 
@@ -242,6 +242,12 @@ curl -X 'GET' 'http://localhost:5120/jukebox/v1/albums/?$filter=startswith(Title
 
 # Returns a list of songs whose size is below a certain value.
 curl -X 'GET' 'http://localhost:5120/jukebox/v1/tracks/?$filter=Bytes%20lt%201024000&$select=TrackId,Name,AlbumId,Bytes' -H 'accept: */*'
+
+# Average Unit Price of All Tracks
+curl -X 'GET' 'http://localhost:5120/jukebox/v1/Tracks?$apply=aggregate(UnitPrice%20with%20average%20as%20AverageUnitPrice)' -H 'accept: */*'
+
+# Total Invoices group by Billing Country
+curl -X 'GET' 'http://localhost:5120/jukebox/v1/Invoices?$apply=groupby((BillingCountry),aggregate(Total%20with%20sum%20as%20TotalAmount))' -H 'accept: */*'
 ```
 
 ### OData MVC Client Test

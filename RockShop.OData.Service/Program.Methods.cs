@@ -9,6 +9,7 @@ partial class Program
         builder.EntitySet<Album>("Albums");
         builder.EntitySet<Artist>("Artists");
         builder.EntitySet<Track>("Tracks");
+        builder.EntitySet<Invoice>("Invoices");
         return builder.GetEdmModel();
     }
 }
