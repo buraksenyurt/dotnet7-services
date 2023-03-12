@@ -249,3 +249,27 @@ curl -X 'GET' 'http://localhost:5120/jukebox/v1/tracks/?$filter=Bytes%20lt%20102
 Start RockShop.OData.Service projcet first and than start the RockShop.OData.Client.Mvc project.
 
 ![assets/odata_client_01.png](assets/odata_client_01.png)
+
+## GraphQL Sample
+
+After the **dotnet run** command go to http://localhost:5034/graphql...
+
+![assets/graphql_01.png](assets/graphql_01.png)
+
+![assets/graphql_02.png](assets/graphql_02.png)
+
+Sample Hello World graphql queries.
+
+```json
+query AreYouThere {
+  ping
+}
+
+query GiveMeALuckNumber {
+  luckyNum
+}
+```
+
+![assets/graphql_03.png](assets/graphql_03.png)
+
+![assets/graphql_04.png](assets/graphql_04.png)
