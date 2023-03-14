@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "53a23e12-55de-4e01-91f1-44dcdd3b7291",
+		"name": "Chinook GraphQL Service [Net 7]",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "1401662"
+	},
+	"item": [
+		{
+			"name": "Ping",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\": \"{ping}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5034/graphql"
+			},
+			"response": []
+		},
+		{
+			"name": "My Lucky Number",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\": \"{luckyNum}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5034/graphql"
+			},
+			"response": []
+		},
+		{
+			"name": "Artist List On Page 5",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\": \"{ artists(page:5) { name } }\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5034/graphql"
+			},
+			"response": []
+		},
+		{
+			"name": "Album By Id",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\": \"{ album(albumId:12){ title } }\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5034/graphql"
+			},
+			"response": []
+		},
+		{
+			"name": "Total Sales By Country (Top 3)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\": \"{ totalSalesByCountry(count: 3) { country total } }\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5034/graphql"
+			},
+			"response": []
+		},
+		{
+			"name": "Tracks with Paging",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\": \"{ tracks(page: 10){ album, name, composer } }\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5034/graphql"
+			},
+			"response": []
+		},
+		{
+			"name": "Tracks with Paging Copy (With parameter)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\": \"query tracksWithPaging($pageId: Int!) { tracks(page:$pageId){ album, name, composer } }\",\n    \"variables\": {\n        \"pageId\": 5\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5034/graphql"
+			},
+			"response": []
+		}
+	]
+}

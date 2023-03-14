@@ -1,0 +1,196 @@
+{
+	"info": {
+		"_postman_id": "52cdce6f-d8a5-4e95-b914-08927b793b64",
+		"name": "Chinook OData Service [Net 7]",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "1401662"
+	},
+	"item": [
+		{
+			"name": "Album Titles(Top 10)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5120/jukebox/v1/albums/?$select=title&top=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5120",
+					"path": [
+						"jukebox",
+						"v1",
+						"albums",
+						""
+					],
+					"query": [
+						{
+							"key": "$select",
+							"value": "title"
+						},
+						{
+							"key": "top",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Album Titles (Top 10 Desc)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5120/jukebox/v1/albums/?$orderby=title desc&$select=title&top=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5120",
+					"path": [
+						"jukebox",
+						"v1",
+						"albums",
+						""
+					],
+					"query": [
+						{
+							"key": "$orderby",
+							"value": "title desc"
+						},
+						{
+							"key": "$select",
+							"value": "title"
+						},
+						{
+							"key": "top",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Albums Titles(Starts with D)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5120/jukebox/v1/albums/?$filter=startswith(Title,'D')&select=AlbumId,Title",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5120",
+					"path": [
+						"jukebox",
+						"v1",
+						"albums",
+						""
+					],
+					"query": [
+						{
+							"key": "$filter",
+							"value": "startswith(Title,'D')"
+						},
+						{
+							"key": "select",
+							"value": "AlbumId,Title"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Song List (By Track Size)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5120/jukebox/v1/tracks/?$filter=Bytes lt 1024000&$select=TrackId,Name,AlbumId,Bytes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5120",
+					"path": [
+						"jukebox",
+						"v1",
+						"tracks",
+						""
+					],
+					"query": [
+						{
+							"key": "$filter",
+							"value": "Bytes lt 1024000"
+						},
+						{
+							"key": "$select",
+							"value": "TrackId,Name,AlbumId,Bytes"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Average Unit Price of Tracks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5120/jukebox/v1/Tracks?$apply=aggregate(UnitPrice with average as AverageUnitPrice)",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5120",
+					"path": [
+						"jukebox",
+						"v1",
+						"Tracks"
+					],
+					"query": [
+						{
+							"key": "$apply",
+							"value": "aggregate(UnitPrice with average as AverageUnitPrice)"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Total Invoices group by Billing Country",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5120/jukebox/v1/Invoices?$apply=groupby((BillingCountry),aggregate(Total with sum as TotalAmount))",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5120",
+					"path": [
+						"jukebox",
+						"v1",
+						"Invoices"
+					],
+					"query": [
+						{
+							"key": "$apply",
+							"value": "groupby((BillingCountry),aggregate(Total with sum as TotalAmount))"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
