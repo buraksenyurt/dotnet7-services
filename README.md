@@ -274,8 +274,44 @@ query AreYouThere {
 query GiveMeALuckNumber {
   luckyNum
 }
+
+query GetArtists {
+  artists(page:5) {
+    name
+  }
+}
+
+query GetQueries {
+  artists(page:5) {
+    name
+  },
+  album(albumId:1){
+    title
+  }
+}
+
+query Sales {
+  totalSalesByCountry(count: 3) {
+    country
+    total
+  }
+}
+
+query Queries {
+  tracks(page: 10){
+    album,
+    name,
+    composer
+  }
+}
 ```
 
 ![assets/graphql_03.png](assets/graphql_03.png)
 
 ![assets/graphql_04.png](assets/graphql_04.png)
+
+![assets/graphql_05.png](assets/graphql_05.png)
+
+![assets/graphql_06.png](assets/graphql_06.png)
+
+![assets/graphql_07.png](assets/graphql_07.png)
