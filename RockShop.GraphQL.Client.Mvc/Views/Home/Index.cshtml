@@ -1,8 +1,86 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using RockShop.Shared
+@using RockShop.GraphQL.Client.Mvc.Models
+@model IndexViewModel
+
+@{
+
+    ViewData["Title"] = "All tracks with paging";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    <div class="card card-body">
+        <form>
+            Page number
+            <input name="pageNumber" value="1" />
+            <input type="submit" />
+        </form>
+    </div>
+    @if (Model.Errors is not null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <table class="table table-striped">
+                <thead>
+                    <td>Path</td>
+                    <td>Message</td>
+                    <td>Locations</td>
+                </thead>
+                <tbody>
+                    @foreach (Error err in Model.Errors)
+                    {
+                        <tr>
+                            <td>
+                                @if (err.Path is not null)
+                                {
+                                    @foreach (string path in err.Path)
+                                    {
+                                        <span class="badge bg-danger">@path</span>
+                                    }
+                                }
+                            </td>
+                            <td>@err.Message</td>
+                            <td>
+                                @if (err.ErrorLocations is not null)
+                                {
+                                    @foreach (ErrorLocation loc in err.ErrorLocations)
+                                    {
+                                        <span class="badge bg-danger">@loc.Line, @loc.Column</span>
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model.Tracks is not null)
+    {
+        <div>
+            <p>
+            <table>
+                    @foreach (TrackDto trk in Model.Tracks)
+                    {
+                    <tr>
+                        <td>@trk.Composer</td>
+                        <td>@trk.Album</td>
+                        <td>@trk.Name</td>
+                    </tr>
+                    }
+            </table>
+            </p>
+        </div>
+    }
+</div>
+<p>
+    <a class="btn btn-primary" data-bs-toggle="collapse" href="#rawResponse" role="button" aria-expanded="false"
+        aria-controls="rawResponse">Show/Hide Raw Response</a>
+</p>
+<div class="collapse" id="rawResponse">
+    <div class="card card-body">
+        Status code @((int)Model.StatusCode): @Model.StatusCode
+        <hr />
+        @Model.RawResponse
+    </div>
 </div>
