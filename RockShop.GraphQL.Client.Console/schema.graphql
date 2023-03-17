@@ -1,0 +1,41 @@
+﻿schema {
+  query: Query
+}
+
+type Query {
+  ping: String!
+  luckyNum: Int!
+  artists(page: Int): [Artist!]!
+  album(albumId: Int!): Album
+  totalSalesByCountry(count: Int!): [TotalSalesByCountryDto!]!
+  tracks(page: Int): [TrackDto!]!
+}
+
+type Artist {
+  artistId: Int!
+  name: String
+}
+
+type Album {
+  albumId: Int!
+  title: String!
+  artistId: Int!
+}
+
+type TotalSalesByCountryDto {
+  country: String
+  total: Decimal!
+}
+
+type TrackDto {
+  name: String
+  album: String
+  composer: String
+  duration: Float!
+  unitPrice: Decimal!
+  genre: String
+  mediaType: String
+}
+
+"The built-in `Decimal` scalar type."
+scalar Decimal
