@@ -315,3 +315,9 @@ query Queries {
 ![assets/graphql_06.png](assets/graphql_06.png)
 
 ![assets/graphql_07.png](assets/graphql_07.png)
+
+### MVC Client Test for GraphQL
+
+Start RockShop.GraphQL projcet first and than start the RockShop.GraphQL.Client.Mvc project.
+
+![assets/graphql_08.png](assets/graphql_08.png)
