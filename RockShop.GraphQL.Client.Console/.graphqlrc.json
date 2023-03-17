@@ -4,15 +4,17 @@
   "extensions": {
     "strawberryShake": {
       "name": "RockShopClient",
+      "namespace":"RockShop.GraphQL.Client.Console",
       "url": "http://localhost:5034/graphql",
-      "records": {
-        "inputs": false,
-        "entities": false
+      "dependencyInjection":true,
+      "records":{
+        "inputs":false,
+        "entities":false
       },
-      "transportProfiles": [
+      "transportProfiles":[
         {
-          "default": "Http",
-          "subscription": "WebSocket"
+          "default":"Http",
+          "subscription":"WebSocket"
         }
       ]
     }
