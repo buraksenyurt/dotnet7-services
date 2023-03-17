@@ -321,3 +321,19 @@ query Queries {
 Start RockShop.GraphQL projcet first and than start the RockShop.GraphQL.Client.Mvc project.
 
 ![assets/graphql_08.png](assets/graphql_08.png)
+
+### Console Client for GraphQL
+
+In this sample we use Strawberry Shake tool which creating graphql client easly.
+
+```bash
+# in console application folder
+dotnet new tool-manifest
+dotnet tool install StrawberryShake.Tools --local
+
+# After added required packages start the GraphQL server and than
+# This command adds a GraphQL client to Console application. Look at the files which has a .graphql extensions.
+dotnet graphql init http://localhost:5034/graphql -n RockShopClient
+```
+
+![assets/graphql_09.png](assets/graphql_09.png)
