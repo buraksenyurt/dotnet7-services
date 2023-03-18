@@ -337,3 +337,27 @@ dotnet graphql init http://localhost:5034/graphql -n RockShopClient
 ```
 
 ![assets/graphql_09.png](assets/graphql_09.png)
+
+### GraphQL Mutations
+
+Sample insert message.
+
+```json
+mutation AddNewArtist {
+  addArtist(input: { name: "Aretha Franklin" }) {
+    artist {
+      artistId
+      name
+    }
+  }
+}
+
+// For Check (Album ID different probably)
+query FindArtist{
+  artist(artistId: 287){
+    name
+  }
+}
+```
+
+![assets/graphql_10.png](assets/graphql_10.png)
