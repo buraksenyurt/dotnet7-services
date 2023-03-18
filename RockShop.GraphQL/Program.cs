@@ -9,7 +9,9 @@ builder.Services.AddChinookDbContext();
 builder.Services
     .AddGraphQLServer()
     .RegisterDbContext<ChinookDbContext>() // to use Entity Framework Context with GraphQL
-    .AddQueryType<Query>();
+    .AddQueryType<Query>() // Added query type
+    .AddMutationType<Mutation>(); // Added mutation type
+
 var app = builder.Build();
 
 app.MapGet("/", () => "For GraphQL server -> http://localhost:5034/graphql");

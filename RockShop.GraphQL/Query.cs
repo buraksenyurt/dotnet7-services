@@ -23,6 +23,15 @@ public class Query
         return album;
     }
 
+    public Artist? GetArtist(ChinookDbContext dbContext, int artistId)
+    {
+        Artist? artist = dbContext.Artists.Find(artistId);
+        if (artist == null)
+            return null;
+
+        return artist;
+    }
+
     public IQueryable<TotalSalesByCountryDto> GetTotalSalesByCountry(ChinookDbContext dbContext, int count)
     {
         if (count <= 0 || count > 10)
