@@ -15,4 +15,8 @@
     </PackageReference>
   </ItemGroup>
 
+   <ItemGroup>
+    <Protobuf Include="Protos\jukebox.proto" GrpcServices="Client" />
+  </ItemGroup>
+
 </Project>

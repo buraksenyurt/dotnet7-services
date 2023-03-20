@@ -1,15 +1,19 @@
+using RockShop.Grpc.Client.Mvc;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddGrpcClient<JukeBox.JukeBoxClient>("JukeBox", options =>
+{
+    options.Address = new Uri("http://localhost:5092");
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

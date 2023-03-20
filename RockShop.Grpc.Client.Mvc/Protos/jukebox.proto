@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option csharp_namespace="RockShop.Grpc.Client.Mvc";
+
+package jukebox;
+
+service JukeBox{
+    rpc GetArtists(ArtistRequest) returns (ArtistReply);
+}
+
+message ArtistRequest{
+    int32 pageNumber = 1;
+}
+
+message ArtistReply{
+    repeated ArtistMessage data = 1;
+}
+
+message ArtistMessage{
+    int32 artistId = 1;
+    string name = 2;
+}
