@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RockShop.GraphQL.Client.Con
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RockShop.Grpc.Service", "RockShop.Grpc.Service\RockShop.Grpc.Service.csproj", "{B35B0B33-0682-4974-8B47-ABF5F5E245D9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RockShop.Grpc.Client.Mvc", "RockShop.Grpc.Client.Mvc\RockShop.Grpc.Client.Mvc.csproj", "{2F65DD70-E97C-4318-A5C4-A664CED1F547}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -88,5 +90,9 @@ Global
 		{B35B0B33-0682-4974-8B47-ABF5F5E245D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B35B0B33-0682-4974-8B47-ABF5F5E245D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B35B0B33-0682-4974-8B47-ABF5F5E245D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F65DD70-E97C-4318-A5C4-A664CED1F547}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F65DD70-E97C-4318-A5C4-A664CED1F547}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F65DD70-E97C-4318-A5C4-A664CED1F547}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F65DD70-E97C-4318-A5C4-A664CED1F547}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

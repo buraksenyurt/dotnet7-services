@@ -4,7 +4,7 @@ option csharp_namespace="RockShop.Grpc.Service";
 
 package jukebox;
 
-service jukebox{
+service JukeBox{
     rpc GetArtists(ArtistRequest) returns (ArtistReply);
 }
 
@@ -13,6 +13,10 @@ message ArtistRequest{
 }
 
 message ArtistReply{
+    repeated ArtistMessage data = 1;
+}
+
+message ArtistMessage{
     int32 artistId = 1;
     string name = 2;
 }
