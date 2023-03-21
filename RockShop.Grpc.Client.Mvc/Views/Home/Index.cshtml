@@ -1,8 +1,33 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Artist with Paging";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">All Artists in JukeBox</h1>
+    <div class="alert alert-secondary">
+        <form>
+            <input name="pageNumber" placeholder="Page number?" />
+            <input type="submit" />
+        </form>
+    </div>
+    <div>
+        <h1 class="display-6">Page @Model.CurrentPage</h1>
+    </div>
+    @if (ViewData["exception"] is not null)
+    {
+        <p class="alert alert-danger">@ViewData["exception"]</p>
+    }
+
+    @if (Model.Artists is not null)
+    {
+        <table>
+            @foreach (ArtistMessage artist in Model.Artists)
+            {
+                <tr>
+                    <td>@artist.ArtistId</td>
+                    <td>@artist.Name</td>
+                </tr>
+            }
+        </table>
+    }
 </div>

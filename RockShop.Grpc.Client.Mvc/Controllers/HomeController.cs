@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using RockShop.Grpc.Client.Mvc.Models;
-using Grpc.Net.Client;
 using Grpc.Net.ClientFactory;
 
 namespace RockShop.Grpc.Client.Mvc.Controllers;
@@ -17,19 +16,21 @@ public class HomeController : Controller
         _jukeBoxClient = factory.CreateClient<JukeBox.JukeBoxClient>("JukeBox");
     }
 
-    public async Task<IActionResult> Index(int pn = 1)
+    public async Task<IActionResult> Index(int pageNumber = 1)
     {
+        IndexViewModel model = new();
         try
         {
-            ArtistReply reply = await _jukeBoxClient.GetArtistsAsync(new Mvc.ArtistRequest { PageNumber = pn });
-            ViewData["artistList"] = reply.Data;
+            ArtistReply reply = await _jukeBoxClient.GetArtistsAsync(new Mvc.ArtistRequest { PageNumber = pageNumber });
+            model.CurrentPage = pageNumber;
+            model.Artists = reply.Data;
         }
         catch (Exception e)
         {
             _logger.LogError("RockShop service is not responding.");
             ViewData["exception"] = e.Message;
         }
-        return View();
+        return View(model);
     }
 
     public IActionResult Privacy()
