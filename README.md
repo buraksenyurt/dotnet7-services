@@ -361,3 +361,9 @@ query FindArtist{
 ```
 
 ![assets/graphql_10.png](assets/graphql_10.png)
+
+## gRPC Service Sample
+
+This example includes a gRPC-based service and thin client. Run RockShop.Grpc.Service first, then RockShop.Grpc.Client.Mvc.
+
+![assets/grpc_01.png](assets/grpc_01.png)
