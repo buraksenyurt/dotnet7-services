@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RockShop.Grpc.Client.Mvc.Models;
 using Grpc.Net.ClientFactory;
+using Grpc.Core;
 
 namespace RockShop.Grpc.Client.Mvc.Controllers;
 
@@ -21,9 +22,21 @@ public class HomeController : Controller
         IndexViewModel model = new();
         try
         {
-            ArtistReply reply = await _jukeBoxClient.GetArtistsAsync(new Mvc.ArtistRequest { PageNumber = pageNumber });
+            // ArtistReply reply = await _jukeBoxClient.GetArtistsAsync(new Mvc.ArtistRequest { PageNumber = pageNumber });
+            // model.CurrentPage = pageNumber;
+            // model.Artists = reply.Data;
+
+            // To use Metadata on RPC
+            AsyncUnaryCall<ArtistReply> rpcCall = _jukeBoxClient.GetArtistsAsync(new ArtistRequest { PageNumber = pageNumber });
+            Metadata metadata = await rpcCall.ResponseHeadersAsync;
+            foreach (Metadata.Entry entry in metadata)
+            {
+                _logger.LogCritical($"Key: {entry.Key}, Value: {entry.Value}");
+            }
+            ArtistReply reply = await rpcCall.ResponseAsync;
             model.CurrentPage = pageNumber;
             model.Artists = reply.Data;
+
         }
         catch (Exception e)
         {
