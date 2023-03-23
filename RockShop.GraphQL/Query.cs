@@ -32,7 +32,7 @@ public class Query
         return artist;
     }
 
-    public IQueryable<TotalSalesByCountryDto> GetTotalSalesByCountry(ChinookDbContext dbContext, int count)
+    public IQueryable<TotalSalesByCountryDto>? GetTotalSalesByCountry(ChinookDbContext dbContext, int count)
     {
         if (count <= 0 || count > 10)
             return null;
@@ -63,7 +63,7 @@ public class Query
                          Genre = g.Name,
                          MediaType = m.Name
                      };
-        return result.Skip(((page ?? 1) - 1) * 10).Take(10);
+        return result.OrderBy(t => t.Name).Skip(((page ?? 1) - 1) * 10).Take(10);
     }
 }
 
