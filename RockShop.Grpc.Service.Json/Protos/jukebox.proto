@@ -5,8 +5,10 @@ option csharp_namespace="RockShop.Grpc.Service";
 
 package jukebox;
 
+// JukeBox Service
 service JukeBox{
 
+    // Get album list with paging
     rpc GetAlbums(AlbumRequest) returns (AlbumReply){
         option(google.api.http)={
             get:"/v1/jukebox/albums/{pageNumber}",

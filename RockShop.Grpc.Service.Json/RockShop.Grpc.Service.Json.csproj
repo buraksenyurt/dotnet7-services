@@ -4,6 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +14,7 @@
   <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.49.0" />
     <PackageReference Include="Microsoft.AspNetCore.Grpc.JsonTranscoding" Version="7.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Grpc.Swagger" Version="0.3.4" />
   </ItemGroup>
 
   <ItemGroup>
