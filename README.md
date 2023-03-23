@@ -368,6 +368,22 @@ This example includes a gRPC-based service and thin client. Run RockShop.Grpc.Se
 
 ![assets/grpc_01.png](assets/grpc_01.png)
 
+### Deadline Suppor for Higher Reliability
+
 One of the gRPC techniques that can be used to increase the reliability of the service side is Deadline enforcement. The runtime results for this situation are as follows.
 
 ![assets/grpc_02.png](assets/grpc_02.png)
+
+### JSON Support for non-HTTP2
+
+In order to work with the outputs of gRPC services in JSON format on non-HTTP2 clients, the http.proto and annotations.proto files added to the project are copied from the [following address](https://github.com/dotnet/aspnetcore/tree/main/src/Grpc/JsonTranscoding/test/testassets/Sandbox/google/api).
+
+The application RockShop.Grpc.Service.Json can be used for testing. An example call like /v1/jukebox/albums/6 can be made from the browser after the application is started.
+
+![assets/grpc_03.png](assets/grpc_03.png)
+
+### Swagger Support for JSON based service
+
+After adding Swagger support to the RockShop.Grpc.Service.Json application, the helper interface can be easily accessed via the swagger/index.html call.
+
+![assets/grpc_04.png](assets/grpc_04.png)
