@@ -367,3 +367,7 @@ query FindArtist{
 This example includes a gRPC-based service and thin client. Run RockShop.Grpc.Service first, then RockShop.Grpc.Client.Mvc.
 
 ![assets/grpc_01.png](assets/grpc_01.png)
+
+One of the gRPC techniques that can be used to increase the reliability of the service side is Deadline enforcement. The runtime results for this situation are as follows.
+
+![assets/grpc_02.png](assets/grpc_02.png)
