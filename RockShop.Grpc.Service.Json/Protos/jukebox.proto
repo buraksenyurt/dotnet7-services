@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+option csharp_namespace="RockShop.Grpc.Service";
+
+package jukebox;
+
+service JukeBox{
+
+    rpc GetAlbums(AlbumRequest) returns (AlbumReply){
+        option(google.api.http)={
+            get:"/v1/jukebox/albums/{pageNumber}",
+        };
+    }
+}
+
+message AlbumRequest{
+    int32 pageNumber = 1;
+}
+
+message AlbumReply{
+    repeated AlbumMessage data = 1;
+}
+
+message AlbumMessage{
+    int32 albumId = 1;
+    string title = 2;
+}

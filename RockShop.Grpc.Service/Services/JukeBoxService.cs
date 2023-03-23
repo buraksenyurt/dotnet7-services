@@ -14,11 +14,11 @@ public class JukeBoxService : JukeBox.JukeBoxBase
         _dbContext = dbContext;
     }
 
-    public override async Task<ArtistReply> GetArtists(ArtistRequest request, ServerCallContext context)
+    public override Task<ArtistReply> GetArtists(ArtistRequest request, ServerCallContext context)
     {
         // Testing deadline for higher reliability
         _logger.LogWarning($"Deadline of {context.Deadline:T}. Now {DateTime.UtcNow:T}");
-        await Task.Delay(TimeSpan.FromSeconds(5));
+        //await Task.Delay(TimeSpan.FromSeconds(5));
 
         var artists = _dbContext
             .Artists
@@ -32,7 +32,7 @@ public class JukeBoxService : JukeBox.JukeBoxBase
             });
         ArtistReply reply = new ArtistReply();
         reply.Data.AddRange(artists);
-        return reply;
+        return Task.FromResult(reply);
     }
 
 }

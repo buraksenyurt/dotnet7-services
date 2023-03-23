@@ -23,7 +23,7 @@ public class HomeController : Controller
         try
         {
             // Added deadline
-            ArtistReply reply = await _jukeBoxClient.GetArtistsAsync(new Mvc.ArtistRequest { PageNumber = pageNumber }, deadline: DateTime.UtcNow.AddSeconds(3));
+            ArtistReply reply = await _jukeBoxClient.GetArtistsAsync(new Mvc.ArtistRequest { PageNumber = pageNumber }, deadline: DateTime.UtcNow.AddSeconds(1.5));
             model.CurrentPage = pageNumber;
             model.Artists = reply.Data;
 
