@@ -16,6 +16,10 @@ public class JukeBoxService : JukeBox.JukeBoxBase
 
     public override async Task<ArtistReply> GetArtists(ArtistRequest request, ServerCallContext context)
     {
+        // Testing deadline for higher reliability
+        _logger.LogWarning($"Deadline of {context.Deadline:T}. Now {DateTime.UtcNow:T}");
+        await Task.Delay(TimeSpan.FromSeconds(5));
+
         var artists = _dbContext
             .Artists
             .OrderBy(a => a.ArtistId)

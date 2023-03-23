@@ -22,21 +22,28 @@ public class HomeController : Controller
         IndexViewModel model = new();
         try
         {
-            // ArtistReply reply = await _jukeBoxClient.GetArtistsAsync(new Mvc.ArtistRequest { PageNumber = pageNumber });
-            // model.CurrentPage = pageNumber;
-            // model.Artists = reply.Data;
-
-            // To use Metadata on RPC
-            AsyncUnaryCall<ArtistReply> rpcCall = _jukeBoxClient.GetArtistsAsync(new ArtistRequest { PageNumber = pageNumber });
-            Metadata metadata = await rpcCall.ResponseHeadersAsync;
-            foreach (Metadata.Entry entry in metadata)
-            {
-                _logger.LogCritical($"Key: {entry.Key}, Value: {entry.Value}");
-            }
-            ArtistReply reply = await rpcCall.ResponseAsync;
+            // Added deadline
+            ArtistReply reply = await _jukeBoxClient.GetArtistsAsync(new Mvc.ArtistRequest { PageNumber = pageNumber }, deadline: DateTime.UtcNow.AddSeconds(3));
             model.CurrentPage = pageNumber;
             model.Artists = reply.Data;
 
+            // // To use Metadata on RPC
+            // AsyncUnaryCall<ArtistReply> rpcCall = _jukeBoxClient.GetArtistsAsync(new ArtistRequest { PageNumber = pageNumber });
+            // Metadata metadata = await rpcCall.ResponseHeadersAsync;
+            // foreach (Metadata.Entry entry in metadata)
+            // {
+            //     _logger.LogCritical($"Key: {entry.Key}, Value: {entry.Value}");
+            // }
+            // ArtistReply reply = await rpcCall.ResponseAsync;
+
+            model.CurrentPage = pageNumber;
+            model.Artists = reply.Data;
+
+        }
+        catch (RpcException rpcEx) when (rpcEx.StatusCode == global::Grpc.Core.StatusCode.DeadlineExceeded)
+        {
+            _logger.LogWarning("Grpc Service deadline exceeded");
+            ViewData["exception"] = rpcEx.Message;
         }
         catch (Exception e)
         {
