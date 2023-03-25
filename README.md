@@ -387,3 +387,9 @@ The application RockShop.Grpc.Service.Json can be used for testing. An example c
 After adding Swagger support to the RockShop.Grpc.Service.Json application, the helper interface can be easily accessed via the swagger/index.html call.
 
 ![assets/grpc_04.png](assets/grpc_04.png)
+
+### Server Reflection Support on gRPC Service
+
+After adding Swagger support to the RockShop.Grpc.Service application, we can use Postman to call GetArtists function as follows.
+
+![assets/grpc_05.png](assets/grpc_05.png)
