@@ -139,6 +139,43 @@
 			"response": []
 		},
 		{
+			"name": "Track Info by Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5120/jukebox/v1/tracks/?$filter=trackId eq 1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5120",
+					"path": [
+						"jukebox",
+						"v1",
+						"tracks",
+						""
+					],
+					"query": [
+						{
+							"key": "$filter",
+							"value": "trackId eq 1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Track Info by Id [Version 2]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5120/jukebox/v2/tracks/5"
+			},
+			"response": []
+		},
+		{
 			"name": "Average Unit Price of Tracks",
 			"request": {
 				"method": "GET",

@@ -9,10 +9,12 @@ public class TracksController
     : ODataController
 {
     protected readonly ChinookDbContext _context;
+    protected readonly ILogger<TracksController> _logger;
 
-    public TracksController(ChinookDbContext context)
+    public TracksController(ChinookDbContext context, ILogger<TracksController> logger)
     {
         _context = context;
+        _logger = logger;
     }
 
     [EnableQuery]
@@ -33,6 +35,7 @@ public class TracksController
 
         if (version == "2")
         {
+            _logger.LogWarning("Called of Version 2");
             var filtered = tracks.Select(t => new
             {
                 t.Name,
