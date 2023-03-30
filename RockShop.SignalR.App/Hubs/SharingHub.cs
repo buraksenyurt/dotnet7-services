@@ -46,10 +46,37 @@ public class SharingHub
         {
             From = "Conversation Hub",
             To = student.Name,
-            Content = $"Merhaba {student.Name} - {student.ConnectionId}"
+            Content = $"Ahoy! {student.Name} - {student.ConnectionId}"
         };
 
         IClientProxy proxy = Clients.Client(student.ConnectionId);
-        await proxy.SendAsync("ReceiveMessage", suggestion);
+        await proxy.SendAsync("ReceiveSuggestion", suggestion);
+    }
+
+    public async Task SendSuggestion(SuggestionModel model)
+    {
+        IClientProxy proxy;
+        if (string.IsNullOrEmpty(model.To))
+        {
+            model.To = "Everyone";
+            proxy = Clients.All;
+            await proxy.SendAsync("ReceiveSuggestion", model);
+        }
+
+        var studentOrTopic = model.To.Split(',');
+        foreach (var st in studentOrTopic)
+        {
+            if (Students.ContainsKey(st))
+            {
+                model.To = $"User: {Students[st].Name}";
+                proxy = Clients.Client(Students[st].ConnectionId);
+            }
+            else
+            {
+                model.To = $"Topic: {st}";
+                proxy = Clients.Group(st);
+            }
+            await proxy.SendAsync("ReceiveSuggestion", model);
+        }
     }
 }
