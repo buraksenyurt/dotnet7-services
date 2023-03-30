@@ -393,3 +393,30 @@ After adding Swagger support to the RockShop.Grpc.Service.Json application, the 
 After adding Swagger support to the RockShop.Grpc.Service application, we can use Postman to call GetArtists function as follows.
 
 ![assets/grpc_05.png](assets/grpc_05.png)
+
+## SignalR App
+
+The application named RockShop.SignalR.App is an MVC project and demonstrates the use of SignalR. An auxiliary Javascript package is used on the client side of the project. We install this package with the Library Manager CLI tool. We can follow the steps below.
+
+```bash
+dotnet tool install -g Microsoft.Web.LibraryManager.CLi
+# for check
+dotnet tool list -g
+# or
+libman --version
+
+# In project folder use the following command
+# This loads the required js libraries for communication with signalr hub
+libman install @microsoft/signalr@latest -p unpkg -d wwwroot/js/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js
+```
+
+To test the example, run the following command and go to "localhost:5281". For local tests, come to the same page from different tabs and log in with different names.
+
+```bash
+dotnet run
+
+# or for test in secure profile
+dotnet run --launch-profile https
+```
+
+![assets/signalr_01.png](assets/signalr_01.png)
