@@ -2,8 +2,6 @@
 @{
     ViewData["Title"] = "Suggestion Board";
 }
-<script src="~/js/signalr/dist/browser/signalr.js"></script>
-<script src="~/js/board.js"></script>
 
 <div class="container">
     <h1>@ViewData["Title"]</h1>
@@ -16,31 +14,31 @@
                 <input type="text" class="form-control" id="personName" value="Maria" required />
             </div>
             <div class="mb-3">
-                <label for="personTopics" class="form-label">Your topics</label>
+                <label for="personTopics" class="form-label">Topics</label>
                 <input type="text" class="form-control" id="personTopics"
                     value="Q/A Status,Unit Test Plan,Production Logs" required />
             </div>
             <div class="mb-3">
-                <input type="button" class="form-control" id="btnRegister" value="Join" />
+                <input type="button" class="form-control btn btn-outline-dark" id="btnRegister" value="Join" />
             </div>
         </div>
 
         <div class="col">
-            <h2>Send your thoughts</h2>
+            <h2>Your thoughts</h2>
             <div class="col">
                 <label for="msgFrom" class="form-label">From</label>
                 <input type="text" class="form-control" id="msgFrom" value="Maria" readonly />
             </div>
             <div class="col">
-                <label for="msgTo" class="form-label">To</label>
-                <input type="text" class="form-control" id="msgTo" value="Maria" />
+                <label for="msgTo" class="form-label">To (Blank for everyone)</label>
+                <input type="text" class="form-control" id="msgTo" />
             </div>
             <div class="col">
                 <label for="msgThoughts" class="form-label">Thoughts</label>
-                <input type="text" class="form-control" id="msgThoughts" value="Share your thoughts freely..." />
+                <input type="text" class="form-control" id="msgThoughts" />
             </div>
             <div class="mb-3">
-                <input type="button" class="form-control" id="btnSend" value="To the Hub!" />
+                <input type="button" class="form-control btn btn-success" id="btnSend" value="To the Hub!" />
             </div>
         </div>
     </div>
@@ -48,7 +46,21 @@
         <div class="col">
             <hr />
             <h2>Thoughts about topics</h2>
-            <ul id="receivedThoughts"></ul>
+            <table id="receivedThoughts" class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">From</th>
+                        <th scope="col">To</th>
+                        <th scope="col">Thougths</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/board.js"></script>

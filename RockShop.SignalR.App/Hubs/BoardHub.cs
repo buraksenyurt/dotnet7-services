@@ -7,8 +7,14 @@ public class BoardHub
     : Hub
 {
     private static Dictionary<string, Person> Employees = new();
+    private readonly ILogger<BoardHub> _logger;
+    public BoardHub(ILogger<BoardHub> logger)
+    {
+        _logger = logger;
+    }
     public async Task Register(Person register)
     {
+        _logger.LogInformation($"Joining... {register.Name}");
         Person employee;
         if (Employees.ContainsKey(register.Name))
         {
@@ -49,6 +55,7 @@ public class BoardHub
             Content = $"Ahoy! {employee.Name} - {employee.ConnectionId}"
         };
 
+        _logger.LogInformation($"Joined... {register.Name}({register.ConnectionId})");
         IClientProxy proxy = Clients.Client(employee.ConnectionId);
         await proxy.SendAsync("ReceiveSuggestion", suggestion);
     }
@@ -58,6 +65,7 @@ public class BoardHub
         IClientProxy proxy;
         if (string.IsNullOrEmpty(suggestion.To))
         {
+            _logger.LogInformation($"Suggestion to all... {suggestion.From}: {suggestion.Content}");
             suggestion.To = "Everyone";
             proxy = Clients.All;
             await proxy.SendAsync("ReceiveSuggestion", suggestion);
@@ -69,6 +77,7 @@ public class BoardHub
             if (Employees.ContainsKey(st))
             {
                 suggestion.To = $"Person: {Employees[st].Name}";
+                _logger.LogInformation($"Suggestion to {suggestion.To}... {suggestion.From}: {suggestion.Content}");
                 proxy = Clients.Client(Employees[st].ConnectionId);
             }
             else
