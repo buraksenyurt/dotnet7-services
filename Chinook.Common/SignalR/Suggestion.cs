@@ -1,6 +1,6 @@
-namespace Chinook.Common;
+namespace Chinook.Common.SignalR.Models;
 
-public class SuggestionModel
+public class Suggestion
 {
     public string From { get; set; } = null!;
     public string To { get; set; } = null!;

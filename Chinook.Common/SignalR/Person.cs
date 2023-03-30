@@ -1,6 +1,6 @@
-﻿namespace Chinook.Common;
+﻿namespace Chinook.Common.SignalR.Models;
 
-public class StudentModel
+public class Person
 {
     public string Name { get; set; }=null!;
     public string ConnectionId{ get; set; }=null!;
