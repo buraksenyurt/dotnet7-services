@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RockShop.Grpc.Service.Json"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chinook.Common", "Chinook.Common\Chinook.Common.csproj", "{42DB6E2C-5E3E-41B6-BFA2-87CF19A3B884}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RockShop.SignalR.App", "RockShop.SignalR.App\RockShop.SignalR.App.csproj", "{E11FD25C-69D6-49BB-BEB3-F5C01D47F20A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -106,5 +108,9 @@ Global
 		{42DB6E2C-5E3E-41B6-BFA2-87CF19A3B884}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42DB6E2C-5E3E-41B6-BFA2-87CF19A3B884}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42DB6E2C-5E3E-41B6-BFA2-87CF19A3B884}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E11FD25C-69D6-49BB-BEB3-F5C01D47F20A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E11FD25C-69D6-49BB-BEB3-F5C01D47F20A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E11FD25C-69D6-49BB-BEB3-F5C01D47F20A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E11FD25C-69D6-49BB-BEB3-F5C01D47F20A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
