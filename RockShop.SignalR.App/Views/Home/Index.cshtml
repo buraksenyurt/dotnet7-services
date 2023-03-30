@@ -1,8 +1,54 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using Chinook.Common.SignalR.Models;
+@{
+    ViewData["Title"] = "Suggestion Board";
 }
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/board.js"></script>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <h1>@ViewData["Title"]</h1>
+    <hr />
+    <div class="row">
+        <div class="col">
+            <h2>Registration</h2>
+            <div class="mb-3">
+                <label for="personName" class="form-label">Your name</label>
+                <input type="text" class="form-control" id="personName" value="Maria" required />
+            </div>
+            <div class="mb-3">
+                <label for="personTopics" class="form-label">Your topics</label>
+                <input type="text" class="form-control" id="personTopics"
+                    value="Q/A Status,Unit Test Plan,Production Logs" required />
+            </div>
+            <div class="mb-3">
+                <input type="button" class="form-control" id="btnRegister" value="Join" />
+            </div>
+        </div>
+
+        <div class="col">
+            <h2>Send your thoughts</h2>
+            <div class="col">
+                <label for="msgFrom" class="form-label">From</label>
+                <input type="text" class="form-control" id="msgFrom" value="Maria" readonly />
+            </div>
+            <div class="col">
+                <label for="msgTo" class="form-label">To</label>
+                <input type="text" class="form-control" id="msgTo" value="Maria" />
+            </div>
+            <div class="col">
+                <label for="msgThoughts" class="form-label">Thoughts</label>
+                <input type="text" class="form-control" id="msgThoughts" value="Share your thoughts freely..." />
+            </div>
+            <div class="mb-3">
+                <input type="button" class="form-control" id="btnSend" value="To the Hub!" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <hr />
+            <h2>Thoughts about topics</h2>
+            <ul id="receivedThoughts"></ul>
+        </div>
+    </div>
 </div>
