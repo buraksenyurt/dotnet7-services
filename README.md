@@ -421,3 +421,9 @@ dotnet run --launch-profile https
 The next example is an application of the Console type. The sample application only communicates with the Hub and listens to the message transmitted to it. Below is a sample runtime image.
 
 ![assets/signalr_02.png](assets/signalr_02.png)
+
+### Streaming Support on SignalR Apps
+
+The runtime output of the streaming example is as follows.
+
+![assets/signalr_03.png](assets/signalr_03.png)
