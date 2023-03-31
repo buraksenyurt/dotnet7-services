@@ -410,13 +410,14 @@ libman --version
 libman install @microsoft/signalr@latest -p unpkg -d wwwroot/js/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js
 ```
 
-To test the example, run the following command and go to "localhost:5281". For local tests, come to the same page from different tabs and log in with different names.
+To test the example, run the following command and go to "https://localhost:7044". For local tests, come to the same page from different tabs and log in with different names.
 
 ```bash
-dotnet run
-
-# or for test in secure profile
 dotnet run --launch-profile https
 ```
 
 ![assets/signalr_01.png](assets/signalr_01.png)
+
+The next example is an application of the Console type. The sample application only communicates with the Hub and listens to the message transmitted to it. Below is a sample runtime image.
+
+![assets/signalr_02.png](assets/signalr_02.png)
