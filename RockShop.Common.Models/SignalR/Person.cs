@@ -1,4 +1,4 @@
-﻿namespace Chinook.Common.SignalR.Models;
+﻿namespace RockShop.Common.Models.SignalR;
 
 public class Person
 {

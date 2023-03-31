@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
-    <ProjectReference Include="..\Chinook.Common\Chinook.Common.csproj" />
+    <ProjectReference Include="..\RockShop.Common.Models\RockShop.Common.Models.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

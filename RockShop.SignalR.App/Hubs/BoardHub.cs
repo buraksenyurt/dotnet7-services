@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.SignalR;
-using Chinook.Common.SignalR.Models;
+using RockShop.Common.Models.SignalR;
 
 namespace RockShop.SignalR.App.Hubs;
 
