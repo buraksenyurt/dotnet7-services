@@ -12,28 +12,34 @@ public class TechDebth
     {
         _logger = logger;
     }
-    public async IAsyncEnumerable<Measure> GetTechReportsUpdatesAsync(string measureName, [EnumeratorCancellation] CancellationToken cancellationToken)
+    public async IAsyncEnumerable<Health> GetHealthReports(string serverName, [EnumeratorCancellation] CancellationToken cancellationToken)
     {
+        _logger.LogInformation("GetHealthReports called");
+        var cpuV = 50.50;
+        var memV = 36.50;
         for (int i = 0; i < 100; i++)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var randomValue = Random.Shared.NextDouble();
-            Measure measure = new Measure
+            cpuV += (Random.Shared.NextDouble() * 10.0) - 3.14;
+            memV += (Random.Shared.NextDouble() * 10.0) - 5.0;
+            Health measure = new Health
             {
-                Name = measureName,
-                Rate = randomValue
+                ServerName = serverName,
+                MemoryRate = memV,
+                CpuUsageRate = cpuV
             };
-            _logger.LogInformation($"{measure.Name}, {measure.Rate}");
+            _logger.LogInformation(measure.ToString());
             yield return measure;
             await Task.Delay(Random.Shared.Next(1, 10) * 1000, cancellationToken);
         }
     }
 
-    public async Task UploadMeasurementsAsync(IAsyncEnumerable<string> measures)
+    public async Task UploadServerNamesAsync(IAsyncEnumerable<string> serverNames)
     {
-        await foreach (string m in measures)
+        await foreach (string server in serverNames)
         {
-            _logger.LogWarning($"Loading {m}");
+            _logger.LogWarning($"Loading health values of {server}");
+            // Do Something with incoming servers
         }
     }
 }
