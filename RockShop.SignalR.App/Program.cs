@@ -11,6 +11,8 @@ var app = builder.Build();
 
 // SignalR Support (Hub Definition)
 app.MapHub<BoardHub>("/board");
+// SiglanR Streaming test
+app.MapHub<TechDebth>("/techReport");
 
 if (!app.Environment.IsDevelopment())
 {
