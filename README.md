@@ -427,3 +427,32 @@ The next example is an application of the Console type. The sample application o
 The runtime output of the streaming example is as follows.
 
 ![assets/signalr_03.png](assets/signalr_03.png)
+
+## Developing Azure Functions
+
+An example Azure function. [Core Tools](https://www.npmjs.com/package/azure-functions-core-tools) may be needed to do local development. In the example of Azure functions, the open source Azurite tool is used for local tests. This tool can be installed on the system with npm.
+
+```bash
+wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+
+sudo apt-get update
+sudo apt-get install azure-functions-core-tools-4
+
+# if installation succesfull this works
+func --version
+
+sudo npm install -g azurite
+
+# To create Azure Function Project from command prompt
+# If we want to develop in In-Process mode remove --worker-runtime dotnet-isolated
+func init --worker-runtime dotnet-isolated --target-framework net7.0
+
+# to create a new Azure Functions function using HTTP Trigger (Authentication anonymous - No API Key Required)
+func new --name TopFiveBookFunction --template "HTTP trigger" --authlevel "anonymous"
+
+# to start function
+func start
+```
+
+![assets/azure_func_01.png](assets/azure_func_01.png)
