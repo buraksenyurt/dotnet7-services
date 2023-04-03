@@ -1,9 +1,0 @@
-{
-  "profiles": {
-    "RockShop_Azure_Service": {
-      "commandName": "Project",
-      "commandLineArgs": "--port 7110",
-      "launchBrowser": false
-    }
-  }
-}
