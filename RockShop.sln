@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RockShop.SignalR.Client.Con
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RockShop.SignalR.Client.Console.Stream", "RockShop.SignalR.Client.Console.Stream\RockShop.SignalR.Client.Console.Stream.csproj", "{DF2C216D-6348-4BED-887E-E9DC9FB80118}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RockShop_Azure_Service_Isolated", "RockShop.Azure.Service.Isolated\RockShop_Azure_Service_Isolated.csproj", "{DC48A8D1-23AA-49D0-BD8A-4FCE9A20770E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -130,5 +132,9 @@ Global
 		{F9DE6438-1762-47FA-88AE-7A18490748E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9DE6438-1762-47FA-88AE-7A18490748E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9DE6438-1762-47FA-88AE-7A18490748E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC48A8D1-23AA-49D0-BD8A-4FCE9A20770E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC48A8D1-23AA-49D0-BD8A-4FCE9A20770E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC48A8D1-23AA-49D0-BD8A-4FCE9A20770E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC48A8D1-23AA-49D0-BD8A-4FCE9A20770E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

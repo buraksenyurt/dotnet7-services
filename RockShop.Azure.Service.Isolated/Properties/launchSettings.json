@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "RockShop_Azure_Service_Isolated": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7062",
+      "launchBrowser": false
+    }
+  }
+}
