@@ -20,7 +20,34 @@
 						}
 					}
 				},
-				"url": "http://localhost:7062/api/TopSalesFunction"
+				"url": "http://localhost:7071/api/TopSalesFunction"
+			},
+			"response": []
+		},
+		{
+			"name": "Get App Report",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:6023/api/report"
+			},
+			"response": []
+		},
+		{
+			"name": "Top sales function information",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:7071/admin/functions/TopSalesFunction"
+			},
+			"response": []
+		},
+		{
+			"name": "App Radar Function [with Rust Service]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:7071/api/AppRadarFunction"
 			},
 			"response": []
 		}

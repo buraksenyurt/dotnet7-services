@@ -456,3 +456,17 @@ func start
 ```
 
 ![assets/azure_func_01.png](assets/azure_func_01.png)
+
+### Calling Another Service
+
+The Azure function in the next example uses another service written in the rust programming language. The dependency injection mechanism is used in the Azure function. To test the example, the rust application must be started first.
+
+```bash
+# in app_radar folder
+cargo run
+
+# in RockShop.Azure.Service.Isolated folder
+func start
+```
+
+![assets/azure_func_02.png](assets/azure_func_02.png)
