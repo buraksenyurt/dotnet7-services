@@ -61,17 +61,17 @@ namespace RockShop.Azure.Service.Isolated
 
     public class Report
     {
-        public Region Region { get; set; }
-        public IEnumerable<Product> Products { get; set; }
+        public Region Region { get; set; } = new Region();
+        public IEnumerable<Product> Products { get; set; } = new List<Product>();
     }
     public class Product
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         public decimal Total { get; set; }
     }
 
     public class Region
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
     }
 }

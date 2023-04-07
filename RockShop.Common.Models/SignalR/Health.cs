@@ -2,7 +2,7 @@ namespace RockShop.Common.Models.SignalR;
 
 public record Health
 {
-    public string ServerName { get; set; }
+    public string ServerName { get; set; } = string.Empty;
     public double CpuUsageRate { get; set; }
     public double MemoryRate { get; set; }
 
