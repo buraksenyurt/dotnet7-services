@@ -4,13 +4,8 @@ using RockShop.Shared;
 using RockShop.WebApi.Service.Dtos.Response;
 using Microsoft.AspNetCore.HttpLogging;
 using AspNetCoreRateLimit;
-
-// Net 7.0 Rate Limiting(PreRelease)
 using Microsoft.AspNetCore.RateLimiting;
 using System.Threading.RateLimiting;
-
-// For JWT Authentication
-using System.Security.Claims;
 
 // To use 3rd Party Rate Limitings set to false 
 //otherwise for using AspNet core internal rate limiting middleware set to true
@@ -42,7 +37,6 @@ if (!UseMicrosoftRateLimits)
     builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
 }
 
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddChinookDbContext();
@@ -67,6 +61,18 @@ builder.Services.AddCors(options =>
         });
 });
 
+
+// Look at where we use "only1ReqPer10Seconds" alias in this code
+builder.Services.AddRateLimiter(_ => _
+    .AddFixedWindowLimiter(policyName: "only1ReqPer10Seconds", options =>
+{
+    options.PermitLimit = 1;
+    options.QueueLimit = 2;
+    options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+    options.Window = TimeSpan.FromSeconds(10);
+}));
+
+
 var app = builder.Build();
 
 // Add Authorization middleware to application runtime
@@ -75,28 +81,14 @@ app.UseAuthorization();
 // Load rate limit policies from configuration by using Seed function
 if (!UseMicrosoftRateLimits) // if 3rd party rate limiter is active
 {
-    using (IServiceScope scope = app.Services.CreateScope())
-    {
-        IClientPolicyStore cps = scope.ServiceProvider.GetRequiredService<IClientPolicyStore>();
-        await cps.SeedAsync();
-    }
+    using IServiceScope scope = app.Services.CreateScope();
+    IClientPolicyStore cps = scope.ServiceProvider.GetRequiredService<IClientPolicyStore>();
+    await cps.SeedAsync();
 }
 else
 {
-    // Using Microsoft Rate Limiter
-    RateLimiterOptions rateLimiterOptions = new();
-    // Look at where we use "only1ReqPer10Seconds" alias in this code
-    rateLimiterOptions.AddFixedWindowLimiter(
-        policyName: "only1ReqPer10Seconds", options =>
-        {
-            options.PermitLimit = 1; // Only one request
-            options.QueueLimit = 2; // Max queue limit
-            options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst; // Oldest request processing first
-            options.Window = TimeSpan.FromSeconds(10); // Rate limit durations in seconds
-        }
-    );
     // Add middleware to this application
-    app.UseRateLimiter(rateLimiterOptions);
+    app.UseRateLimiter();
 }
 
 if (app.Environment.IsDevelopment())
